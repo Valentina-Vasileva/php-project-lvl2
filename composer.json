@@ -1,0 +1,15 @@
+{
+    "name": "hexlet/code",
+    "authors": [
+        {
+            "name": "Ariss",
+            "email": "valentina.ways@yandex.ru"
+        }
+    ],
+    "bin": [
+    	"bin/gendiff"
+    ],	
+    "require": {
+        "docopt/docopt": "^1.0"
+    }
+}
