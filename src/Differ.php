@@ -3,7 +3,6 @@
 namespace Gendiff\Differ;
 
 use function Funct\Strings\startsWith;
-use function Funct\Collection\forEvery;
 
 function getFullPath($file)
 {
