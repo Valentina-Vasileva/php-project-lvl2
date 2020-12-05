@@ -26,7 +26,6 @@ function formatResult(array $array)
 
 function getDifference($firstFile, $secondFile)
 {
-    
     $fullPathToFirstFile = getFullPath($firstFile);
     $fullPathToSecondFile = getFullPath($secondFile);
 
@@ -35,7 +34,7 @@ function getDifference($firstFile, $secondFile)
 
     $keys = array_merge(array_keys($firstFile), array_keys($secondFile));
     sort($keys);
-    $differences = array_reduce($keys, function($acc, $key) use ($firstFile, $secondFile) {
+    $differences = array_reduce($keys, function ($acc, $key) use ($firstFile, $secondFile) {
         $keyUnmodified = "  {$key}";
         $keyAdded = "+ {$key}";
         $keyDeleted = "- {$key}";
@@ -56,7 +55,7 @@ function getDifference($firstFile, $secondFile)
 
         return $acc;
     }, []);
-    
+
     $formattedResult = formatResult($differences);
     print_r($formattedResult);
 }
