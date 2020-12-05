@@ -17,4 +17,5 @@ Usage
    
     $ gendiff <path_to_file1> <path_to_file2>
     
-Installation of the package and the gendiff launch:  
+Example of using the package:  
+[![asciicast](https://asciinema.org/a/Y1Rs8zuuV0BK0CwWpmdw2PMj4.svg)](https://asciinema.org/a/Y1Rs8zuuV0BK0CwWpmdw2PMj4)
