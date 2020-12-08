@@ -1,6 +1,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Valentina-Vasileva/php-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/Valentina-Vasileva/php-project-lvl2/actions)
 ![](https://github.com/Valentina-Vasileva/php-project-lvl2/workflows/PHP%20test/badge.svg)
+
 GENDIFF
 ========
 
