@@ -54,7 +54,6 @@ function getDifference($firstFile, $secondFile)
         return $acc;
     }, []);
 
-    $formattedResult = formatResult($differences);
-    print_r($formattedResult);
-    return $formattedResult;
+    print_r(formatResult($differences));
+    return formatResult($differences);
 }
