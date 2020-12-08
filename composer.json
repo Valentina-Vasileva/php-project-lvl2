@@ -10,9 +10,13 @@
     	"bin/gendiff"
     ],
     "scripts": {
-    	"phpcs": "phpcs"
+    	"phpcs": "phpcs",
+    	"test": "phpunit tests"
     },
     "autoload": {
+     "psr-4": {
+      "Gendiff\\Tests\\": "tests"
+    },
     	"files": [
 	    	"src/Differ.php"
     	]
@@ -22,6 +26,7 @@
         "funct/funct": "^1.5"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.5"
+        "squizlabs/php_codesniffer": "^3.5",
+        "phpunit/phpunit": "^9.5"
     }
 }
