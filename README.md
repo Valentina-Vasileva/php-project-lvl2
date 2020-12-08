@@ -6,7 +6,7 @@
 GENDIFF
 ========
 
-A PHP package which can show differenced between two plain files.
+A PHP package which shows difference between two plain files.
 
 Installation  
 ------------
