@@ -26,11 +26,9 @@ function formatResult(array $array)
 
 function getDifference($firstFile, $secondFile)
 {
-    $fullPathToFirstFile = getFullPath($firstFile);
-    $fullPathToSecondFile = getFullPath($secondFile);
 
-    $firstFile = json_decode(file_get_contents($fullPathToFirstFile), true);
-    $secondFile = json_decode(file_get_contents($fullPathToSecondFile), true);
+    $firstFile = json_decode(file_get_contents(getFullPath($firstFile)), true);
+    $secondFile = json_decode(file_get_contents(getFullPath($secondFile)), true);
 
     $keys = array_merge(array_keys($firstFile), array_keys($secondFile));
     sort($keys);
