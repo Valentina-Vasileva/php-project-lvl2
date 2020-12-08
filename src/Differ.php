@@ -4,7 +4,7 @@ namespace Gendiff\Differ;
 
 use function Funct\Strings\startsWith;
 
-function getFullPath($file)
+function getFullPath(string $file)
 {
     if (!startsWith($file, "/")) {
         $cwd = getcwd();
