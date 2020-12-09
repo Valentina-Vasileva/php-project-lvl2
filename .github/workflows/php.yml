@@ -3,7 +3,6 @@ name: PHP test
 
 on:
   - push
-  - pull_request
 
 jobs:
   test:
@@ -22,11 +21,8 @@ jobs:
         
       - name: Run linter
         run: make lint
-      
-      - name: Run tests
-        run: make test
-        
-      - name: Run test & publish code coverage
+             
+      - name: Run test and show code coverage
         uses: paambaati/codeclimate-action@v2.6.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
