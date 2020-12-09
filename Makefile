@@ -6,3 +6,6 @@ lint:
 	
 test:
 	composer run-script test
+	
+test-coverage:
+	composer run-script test -- --coverage-clover build/logs/clover.xml
