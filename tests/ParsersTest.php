@@ -3,9 +3,9 @@
 namespace Gendiff\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Gendiff\Parser;
+use Gendiff\Parsers;
 
-class ParserTest extends TestCase
+class ParsersTest extends TestCase
 {
     public function testParse()
     {
