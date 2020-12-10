@@ -3,7 +3,7 @@
 namespace Gendiff\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Gendiff\Parsers;
+use function Gendiff\Parsers\parse;
 
 class ParsersTest extends TestCase
 {

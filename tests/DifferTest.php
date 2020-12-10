@@ -28,11 +28,22 @@ class DifferTest extends TestCase
         $this->assertEquals($docAfter, Differ\formatResult($docBefore));
     }
 
-    public function testGetDifference()
+    /**
+     * @dataProvider additionProvider
+     */
+
+    public function testGetDifference($expected, $firstFile, $secondFile)
     {
-        $firstFile = __DIR__ . '/fixtures/TestDoc1.json';
-        $secondFile = __DIR__ . '/fixtures/TestDoc2.json';
-        $docAfter = file_get_contents(__DIR__ . '/fixtures/TestDoc4.txt');
-        $this->assertEquals($docAfter, Differ\getDifference($firstFile, $secondFile));
+        $this->assertEquals($expected, Differ\getDifference($firstFile, $secondFile));
     }
+
+    public function additionProvider()
+    {
+        $docAfter = file_get_contents(__DIR__ . '/fixtures/TestDoc4.txt');
+        return [
+            [$docAfter,  __DIR__ . '/fixtures/TestDoc1.json', __DIR__ . '/fixtures/TestDoc2.json'],
+            [$docAfter,  __DIR__ . '/fixtures/TestDoc1.yaml', __DIR__ . '/fixtures/TestDoc2.yaml']
+        ];
+    }
+
 }
