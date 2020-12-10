@@ -29,10 +29,10 @@ function getDifference($firstFile, $secondFile)
 {
     $parsedFirstFile = (array) parse($firstFile);
     $parsedSecondFile = (array) parse($secondFile);
-   
+
     $keys = array_merge(array_keys($parsedFirstFile), array_keys($parsedSecondFile));
     sort($keys);
-   
+
     $differences = array_reduce($keys, function ($acc, $key) use ($parsedFirstFile, $parsedSecondFile) {
         $keyUnmodified = "  {$key}";
         $keyAdded = "+ {$key}";

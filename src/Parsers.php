@@ -10,11 +10,11 @@ function parse(string $pathTofile)
     $data = file_get_contents($pathTofile);
 
     switch ($extension) {
-    case ('json'):
-        $parsed = json_decode($data, false);
+        case ('json'):
+            $parsed = json_decode($data, false);
         break;
-    case ('yaml'):
-        $parsed = Yaml::parse($data, Yaml::PARSE_OBJECT_FOR_MAP);
+        case ('yaml'):
+            $parsed = Yaml::parse($data, Yaml::PARSE_OBJECT_FOR_MAP);
         break;
     }
     return $parsed;
