@@ -12,10 +12,10 @@ function parse(string $pathTofile)
     switch ($extension) {
         case ('json'):
             $parsed = json_decode($data, false);
-        break;
+            break;
         case ('yaml'):
             $parsed = Yaml::parse($data, Yaml::PARSE_OBJECT_FOR_MAP);
-        break;
+            break;
     }
     return $parsed;
 }
