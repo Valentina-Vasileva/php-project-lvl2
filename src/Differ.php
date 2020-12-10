@@ -27,29 +27,27 @@ function formatResult(array $array)
 
 function getDifference($firstFile, $secondFile)
 {
-
-    $firstFile = json_decode(file_get_contents(getFullPath($firstFile)), true);
-    $secondFile = json_decode(file_get_contents(getFullPath($secondFile)), true);
-
-    $keys = array_merge(array_keys($firstFile), array_keys($secondFile));
+    $parsedFirstFile = (array) parse($firstFile);
+    $parsedSecondFile = (array) parse($secondFile);
+    $keys = array_merge(array_keys($parsedFirstFile), array_keys($parsedSecondFile));
     sort($keys);
-    $differences = array_reduce($keys, function ($acc, $key) use ($firstFile, $secondFile) {
+    $differences = array_reduce($keys, function ($acc, $key) use ($parsedFirstFile, $parsedSecondFile) {
         $keyUnmodified = "  {$key}";
         $keyAdded = "+ {$key}";
         $keyDeleted = "- {$key}";
 
-        if (!array_key_exists($key, $firstFile)) {
-            $acc[$keyAdded] = $secondFile[$key];
-        } elseif (!array_key_exists($key, $secondFile)) {
-            $acc[$keyDeleted] = $firstFile[$key];
-        } elseif ($firstFile[$key] !== $secondFile[$key]) {
+        if (!array_key_exists($key, $parsedFirstFile)) {
+            $acc[$keyAdded] = $parsedSecondFile[$key];
+        } elseif (!array_key_exists($key, $parsedSecondFile)) {
+            $acc[$keyDeleted] = $parsedFirstFile[$key];
+        } elseif ($parsedFirstFile[$key] !== $parsedSecondFile[$key]) {
             if (!array_key_exists($keyDeleted, $acc)) {
-                $acc[$keyDeleted] = $firstFile[$key];
+                $acc[$keyDeleted] = $parsedFirstFile[$key];
             } else {
-                $acc[$keyAdded] = $secondFile[$key];
+                $acc[$keyAdded] = $parsedSecondFile[$key];
             }
         } else {
-            $acc[$keyUnmodified] = $firstFile[$key];
+            $acc[$keyUnmodified] = $parsedFirstFile[$key];
         }
 
         return $acc;
