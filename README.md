@@ -7,7 +7,7 @@
 GENDIFF
 ========
 
-A PHP package which shows difference between two plain files.
+A PHP package which shows difference between two plain files (yaml, json).
 
 Installation  
 ------------
@@ -20,5 +20,10 @@ Usage
    
     $ gendiff <path_to_file1> <path_to_file2>
     
-Example of using the package:  
+### Examples of using the package
+
+#### *.json files:
 [![asciicast](https://asciinema.org/a/Y1Rs8zuuV0BK0CwWpmdw2PMj4.svg)](https://asciinema.org/a/Y1Rs8zuuV0BK0CwWpmdw2PMj4)
+
+#### *.yaml files:
+[![asciicast](https://asciinema.org/a/A6YxQ8x3tyhNzRFhh50k6p1Ir.svg)](https://asciinema.org/a/A6YxQ8x3tyhNzRFhh50k6p1Ir)
