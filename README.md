@@ -7,7 +7,7 @@
 GENDIFF
 ========
 
-A PHP package which shows difference between two plain files (yaml, json).
+A PHP package which shows difference between two files (yaml, json).
 
 Installation  
 ------------
