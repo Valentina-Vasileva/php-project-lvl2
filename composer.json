@@ -19,13 +19,16 @@
     },
     	"files": [
             "src/Differ.php",
-            "src/Parsers.php"
+            "src/Parsers.php",
+            "src/Builder.php",
+            "src/Formatter.php"
     	]
     },
     "require": {
         "docopt/docopt": "^1.0",
         "funct/funct": "^1.5",
-        "symfony/yaml": "^5.2"
+        "symfony/yaml": "^5.2",
+        "tightenco/collect": "^8.17"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5",

@@ -38,7 +38,7 @@ class ParsersTest extends TestCase
             ]
         ];
       
-        $expected = (object) $arrayOfData;
+        $expected = json_decode(json_encode($arrayOfData), false);
         $this->assertEquals($expected, parse($pathToJsonFile));
         $this->assertEquals($expected, parse($pathToYamlFile));
     }
