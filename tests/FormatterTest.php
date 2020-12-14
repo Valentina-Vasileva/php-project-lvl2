@@ -7,7 +7,10 @@ use Gendiff\Formatter;
 
 class FormatterTest extends TestCase
 {
-    public function testFormat()
+
+    protected $objectDataBefore;
+
+    protected function setUp(): void
     {
         $docBefore = [
             "common" => [
@@ -54,8 +57,30 @@ class FormatterTest extends TestCase
             ]
         ];
 
-        $objectDataBefore = json_decode(json_encode($docBefore), false);
+        $this->objectDataBefore = json_decode(json_encode($docBefore), false);
+    }
+
+    public function testFormatToStylish()
+    {
+
         $docAfter = file_get_contents(__DIR__ . '/fixtures/Result1.txt');
-        $this->assertEquals($docAfter, Formatter\format($objectDataBefore));
+        $this->assertEquals($docAfter, Formatter\formatToStylish($this->objectDataBefore));
+    }
+
+     /**
+     * @dataProvider additionProvider
+     */
+
+    public function testFormat($expected, $format)
+    {
+        $this->assertEquals($expected, Formatter\format($this->objectDataBefore, $format));
+    }
+
+    public function additionProvider()
+    {
+        $docAfterStylish = file_get_contents(__DIR__ . '/fixtures/Result1.txt');
+        return [
+            [$docAfterStylish, 'stylish']
+        ];
     }
 }

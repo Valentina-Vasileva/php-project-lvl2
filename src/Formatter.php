@@ -39,8 +39,13 @@ function formatToStylish(object $data, $spaces = '', $startSymbol = "{\n", $leve
 }
 
 
-function format(object $data)
+function format(object $data, $format)
 {
-    $formattedData = formatToStylish($data);
+    switch ($format) {
+        case ('stylish'):
+            $formattedData = formatToStylish($data);
+            break;
+    }
+    
     return $formattedData;
 }

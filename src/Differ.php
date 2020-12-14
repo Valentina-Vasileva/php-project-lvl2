@@ -19,13 +19,14 @@ function getFullPath(string $file)
 }
 
 
-function getDifference($firstFile, $secondFile)
+function getDifference($firstFile, $secondFile, $format = 'stylish')
 {
     $parsedFirstFile =  parse(getFullPath($firstFile));
     $parsedSecondFile = parse(getFullPath($secondFile));
 
     $differences = buildDifference($parsedFirstFile, $parsedSecondFile);
+    $formatted = format($differences, $format);
 
-    print_r(format($differences));
-    return format($differences);
+    print_r($formatted);
+    return $formatted;
 }
