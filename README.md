@@ -22,8 +22,12 @@ Usage
     
 ### Examples of using the package
 
-#### *.json files:
+#### plain *.json files:
 [![asciicast](https://asciinema.org/a/Y1Rs8zuuV0BK0CwWpmdw2PMj4.svg)](https://asciinema.org/a/Y1Rs8zuuV0BK0CwWpmdw2PMj4)
 
-#### *.yaml files:
+#### plain *.yaml files:
 [![asciicast](https://asciinema.org/a/A6YxQ8x3tyhNzRFhh50k6p1Ir.svg)](https://asciinema.org/a/A6YxQ8x3tyhNzRFhh50k6p1Ir)
+
+#### complex *.json/*.yaml files:
+[![asciicast](https://asciinema.org/a/uF8ACdXkqEyc5frWpo7mTPcnj.svg)](https://asciinema.org/a/uF8ACdXkqEyc5frWpo7mTPcnj)
+[![asciicast](https://asciinema.org/a/oaYAGLM5GSjVTex6srZlSWyTV.svg)](https://asciinema.org/a/oaYAGLM5GSjVTex6srZlSWyTV)
