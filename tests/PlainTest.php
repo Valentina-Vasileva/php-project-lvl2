@@ -7,6 +7,31 @@ use Gendiff\Formatters\Plain;
 
 class PlainTest extends TestCase
 {
+
+    /**
+    * @dataProvider additionProvider
+    */
+
+    public function testFormatValue($expected, $value)
+    {
+        $this->assertEquals($expected, Plain\formatValue($value));
+    }
+
+    public function additionProvider()
+    {
+        $item = 'smth';
+
+        return [
+            ['false', false],
+            ['true', true],
+            ['null', null],
+            ['[complex value]', [1, 2, 3]],
+            ['[complex value]', (object) $item],
+            ["'smth'", "smth"],
+            [1, 1]
+        ];
+    }
+
     public function testFormatToPlain()
     {
 

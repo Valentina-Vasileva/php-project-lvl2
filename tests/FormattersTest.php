@@ -8,9 +8,9 @@ use Gendiff\Formatters;
 class FormattersTest extends TestCase
 {
 
-     /**
-     * @dataProvider additionProvider
-     */
+    /**
+    * @dataProvider additionProvider
+    */
 
     public function testFormat($expected, $data, $formatName)
     {

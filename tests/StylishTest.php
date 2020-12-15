@@ -7,6 +7,27 @@ use Gendiff\Formatters\Stylish;
 
 class StylishTest extends TestCase
 {
+    /**
+    * @dataProvider additionProvider
+    */
+
+    public function testFormatValue($expected, $value)
+    {
+        $this->assertEquals($expected, Stylish\formatValue($value));
+    }
+
+    public function additionProvider()
+    {
+        $item = 'smth';
+
+        return [
+            ['false', false],
+            ['true', true],
+            ['null', null],
+            ['{ 1 2 3 }', [1, 2, 3]],
+            [1, 1]
+        ];
+    }
 
     public function testFormatToStylish()
     {

@@ -11,6 +11,7 @@ class ParsersTest extends TestCase
     {
         $pathToJsonFile = __DIR__ . '/fixtures/TestDoc1.json';
         $pathToYamlFile = __DIR__ . '/fixtures/TestDoc1.yaml';
+        
         $arrayOfData = [
             "common" => [
               "setting1" => "Value 1",
