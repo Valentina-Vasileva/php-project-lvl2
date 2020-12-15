@@ -7,27 +7,44 @@
 GENDIFF
 ========
 
-A PHP package which shows difference between two files (yaml, json).
+A PHP package which shows difference (stylish or plain format) between two files (yaml, json).
 
 Installation  
 ------------
-Via Composer
+### Via Composer
 
+#### As a CLI:
     $ composer global require valentina-vasileva/php-project-lvl2
-
+   
+#### As a library to your project:
+    $ composer require valentina-vasileva/php-project-lvl2
+    
 Usage
 -----
-   
-    $ gendiff <path_to_file1> <path_to_file2>
+#### As a CLI:  
+    $ gendiff [--format <fmt>] <path_to_file1> <path_to_file2>
+    
+Also you can show yourself a descriptoin of the CLI:
+
+    $ gendiff -h
+    $ gendiff --help
+
+#### As a library to your project:
+    use Gendiff\Differ\getDifference;
+    
+    getDifference($firstFile, $secondFile, $formatName = 'stylish');
     
 ### Examples of using the package
 
-#### plain *.json files:
+#### plain *.json files to stylish format:
 [![asciicast](https://asciinema.org/a/Y1Rs8zuuV0BK0CwWpmdw2PMj4.svg)](https://asciinema.org/a/Y1Rs8zuuV0BK0CwWpmdw2PMj4)
 
-#### plain *.yaml files:
+#### plain *.yaml files to stylish format:
 [![asciicast](https://asciinema.org/a/A6YxQ8x3tyhNzRFhh50k6p1Ir.svg)](https://asciinema.org/a/A6YxQ8x3tyhNzRFhh50k6p1Ir)
 
-#### complex *.json/*.yaml files:
+#### complex *.json/*.yaml files to stylish format:
 [![asciicast](https://asciinema.org/a/uF8ACdXkqEyc5frWpo7mTPcnj.svg)](https://asciinema.org/a/uF8ACdXkqEyc5frWpo7mTPcnj)
 [![asciicast](https://asciinema.org/a/oaYAGLM5GSjVTex6srZlSWyTV.svg)](https://asciinema.org/a/oaYAGLM5GSjVTex6srZlSWyTV)
+
+#### complex *.json/*.yaml files to plain format:
+[![asciicast](https://asciinema.org/a/55oPisizLekmOWzF798ILwKcV.svg)](https://asciinema.org/a/55oPisizLekmOWzF798ILwKcV)
