@@ -21,15 +21,15 @@ class DifferTest extends TestCase
      * @dataProvider additionProvider
      */
 
-    public function testGetDifference($expected, $firstFile, $secondFile, $format = 'stylish')
+    public function testGetDifference($expected, $firstFile, $secondFile, $formatName = 'stylish')
     {
-        $this->assertEquals($expected, Differ\getDifference($firstFile, $secondFile, $format));
+        $this->assertEquals($expected, Differ\getDifference($firstFile, $secondFile, $formatName));
     }
 
     public function additionProvider()
     {
-        $stylishFormat = 'stylish';
-        $plainFormat = 'plain';
+        $stylishFormatName = 'stylish';
+        $plainFormatName = 'plain';
 
         $docAfterStylish = file_get_contents(__DIR__ . '/fixtures/ResultStylish.txt');
         $docAfterPlain = file_get_contents(__DIR__ . '/fixtures/ResultPlain.txt');
@@ -41,9 +41,9 @@ class DifferTest extends TestCase
 
         return [
             [$docAfterStylish, $docJsonFirst, $docJsonSecond],
-            [$docAfterStylish, $docYamlFirst, $docYamlSecond, $stylishFormat],
-            [$docAfterPlain, $docJsonFirst, $docJsonSecond, $plainFormat],
-            [$docAfterPlain, $docYamlFirst, $docYamlSecond, $plainFormat]
+            [$docAfterStylish, $docYamlFirst, $docYamlSecond, $stylishFormatName],
+            [$docAfterPlain, $docJsonFirst, $docJsonSecond, $plainFormatName],
+            [$docAfterPlain, $docYamlFirst, $docYamlSecond, $plainFormatName]
         ];
     }
 }

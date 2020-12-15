@@ -12,9 +12,9 @@ class FormattersTest extends TestCase
      * @dataProvider additionProvider
      */
 
-    public function testFormat($expected, $data, $format)
+    public function testFormat($expected, $data, $formatName)
     {
-        $this->assertEquals($expected, Formatters\format($data, $format));
+        $this->assertEquals($expected, Formatters\format($data, $formatName));
     }
 
     public function additionProvider()
