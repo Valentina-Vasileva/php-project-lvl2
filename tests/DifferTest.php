@@ -7,6 +7,7 @@ use Gendiff\Differ;
 
 class DifferTest extends TestCase
 {
+
     public function testGetFullPath()
     {
         $fullPath = '/home/User/TestDir/Doc.json';
@@ -20,18 +21,29 @@ class DifferTest extends TestCase
      * @dataProvider additionProvider
      */
 
-    public function testGetDifference($expected, $firstFile, $secondFile)
+    public function testGetDifference($expected, $firstFile, $secondFile, $format = 'stylish')
     {
-        $this->assertEquals($expected, Differ\getDifference($firstFile, $secondFile));
+        $this->assertEquals($expected, Differ\getDifference($firstFile, $secondFile, $format));
     }
 
     public function additionProvider()
     {
-        $docAfter = file_get_contents(__DIR__ . '/fixtures/Result1.txt');
+        $stylishFormat = 'stylish';
+        $plainFormat = 'plain';
+
+        $docAfterStylish = file_get_contents(__DIR__ . '/fixtures/ResultStylish.txt');
+        $docAfterPlain = file_get_contents(__DIR__ . '/fixtures/ResultPlain.txt');
+        
+        $docJsonFirst = __DIR__ . '/fixtures/TestDoc1.json';
+        $docJsonSecond = __DIR__ . '/fixtures/TestDoc2.json';
+        $docYamlFirst = __DIR__ . '/fixtures/TestDoc1.yaml';
+        $docYamlSecond = __DIR__ . '/fixtures/TestDoc2.yaml';
+
         return [
-            [$docAfter,  __DIR__ . '/fixtures/TestDoc1.json', __DIR__ . '/fixtures/TestDoc2.json'],
-            [$docAfter,  __DIR__ . '/fixtures/TestDoc1.yaml', __DIR__ . '/fixtures/TestDoc2.yaml']
+            [$docAfterStylish, $docJsonFirst, $docJsonSecond],
+            [$docAfterStylish, $docYamlFirst, $docYamlSecond, $stylishFormat],
+            [$docAfterPlain, $docJsonFirst, $docJsonSecond, $plainFormat],
+            [$docAfterPlain, $docYamlFirst, $docYamlSecond, $plainFormat]
         ];
     }
-
 }

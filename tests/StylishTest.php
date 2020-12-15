@@ -7,11 +7,11 @@ use Gendiff\Formatters\Stylish;
 
 class StylishTest extends TestCase
 {
-    protected $objectDataBefore;
 
-    protected function setUp(): void
+    public function testFormatToStylish()
     {
-        $docBefore = [
+
+        $dataBefore = [
             "common" => [
                 "+ follow" => false,
                 "setting1" => "Value 1",
@@ -56,13 +56,9 @@ class StylishTest extends TestCase
             ]
         ];
 
-        $this->objectDataBefore = json_decode(json_encode($docBefore), false);
-    }
+        $objectDataBefore = json_decode(json_encode($dataBefore), false);
 
-    public function testFormatToStylish()
-    {
-
-        $docAfter = file_get_contents(__DIR__ . '/fixtures/Result1.txt');
-        $this->assertEquals($docAfter, Stylish\formatToStylish($this->objectDataBefore));
+        $docAfter = file_get_contents(__DIR__ . '/fixtures/ResultStylish.txt');
+        $this->assertEquals($docAfter, Stylish\formatToStylish($objectDataBefore));
     }
 }

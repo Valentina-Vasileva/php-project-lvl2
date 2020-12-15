@@ -8,9 +8,16 @@ use Gendiff\Formatters;
 class FormattersTest extends TestCase
 {
 
-    protected $objectDataBefore;
+     /**
+     * @dataProvider additionProvider
+     */
 
-    protected function setUp(): void
+    public function testFormat($expected, $data, $format)
+    {
+        $this->assertEquals($expected, Formatters\format($data, $format));
+    }
+
+    public function additionProvider()
     {
         $docBefore = [
             "common" => [
@@ -57,23 +64,14 @@ class FormattersTest extends TestCase
             ]
         ];
 
-        $this->objectDataBefore = json_decode(json_encode($docBefore), false);
-    }
+        $objectDataBefore = json_decode(json_encode($docBefore), false);
 
-     /**
-     * @dataProvider additionProvider
-     */
+        $docAfterStylish = file_get_contents(__DIR__ . '/fixtures/ResultStylish.txt');
+        $docAfterPlain = file_get_contents(__DIR__ . '/fixtures/ResultPlain.txt');
 
-    public function testFormat($expected, $format)
-    {
-        $this->assertEquals($expected, Formatters\format($this->objectDataBefore, $format));
-    }
-
-    public function additionProvider()
-    {
-        $docAfterStylish = file_get_contents(__DIR__ . '/fixtures/Result1.txt');
         return [
-            [$docAfterStylish, 'stylish']
+            [$docAfterStylish, $objectDataBefore, 'stylish'],
+            [$docAfterPlain, $objectDataBefore, 'plain']
         ];
     }
 }
