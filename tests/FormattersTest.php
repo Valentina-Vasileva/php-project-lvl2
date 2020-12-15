@@ -3,9 +3,9 @@
 namespace Gendiff\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Gendiff\Formatter;
+use Gendiff\Formatters;
 
-class FormatterTest extends TestCase
+class FormattersTest extends TestCase
 {
 
     protected $objectDataBefore;
@@ -60,20 +60,13 @@ class FormatterTest extends TestCase
         $this->objectDataBefore = json_decode(json_encode($docBefore), false);
     }
 
-    public function testFormatToStylish()
-    {
-
-        $docAfter = file_get_contents(__DIR__ . '/fixtures/Result1.txt');
-        $this->assertEquals($docAfter, Formatter\formatToStylish($this->objectDataBefore));
-    }
-
      /**
      * @dataProvider additionProvider
      */
 
     public function testFormat($expected, $format)
     {
-        $this->assertEquals($expected, Formatter\format($this->objectDataBefore, $format));
+        $this->assertEquals($expected, Formatters\format($this->objectDataBefore, $format));
     }
 
     public function additionProvider()

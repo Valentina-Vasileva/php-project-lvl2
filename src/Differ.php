@@ -5,7 +5,7 @@ namespace Gendiff\Differ;
 use function Funct\Strings\startsWith;
 use function Gendiff\Parsers\parse;
 use function Gendiff\Builder\buildDifference;
-use function Gendiff\Formatter\format;
+use function Gendiff\Formatters\format;
 
 function getFullPath(string $file)
 {

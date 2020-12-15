@@ -21,7 +21,9 @@
             "src/Differ.php",
             "src/Parsers.php",
             "src/Builder.php",
-            "src/Formatter.php"
+            "src/Formatters.php",
+            "src/Formatters/Stylish.php",
+            "src/Formatters/Plain.php"
     	]
     },
     "require": {
