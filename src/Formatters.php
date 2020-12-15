@@ -4,6 +4,7 @@ namespace Gendiff\Formatters;
 
 use function Funct\Strings\startsWith;
 use function Gendiff\Formatters\Stylish\formatToStylish;
+use function Gendiff\Formatters\Plain\formatToPlain;
 
 function format(object $data, $format)
 {
@@ -11,6 +12,9 @@ function format(object $data, $format)
         case ('stylish'):
             $formattedData = formatToStylish($data);
             break;
+        case ('plain'):
+            $formattedData = formatToPlain($data);
+            break;    
     }
 
     return $formattedData;
