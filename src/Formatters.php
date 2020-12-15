@@ -14,7 +14,7 @@ function format(object $data, $format)
             break;
         case ('plain'):
             $formattedData = formatToPlain($data);
-            break;    
+            break;
     }
 
     return $formattedData;
