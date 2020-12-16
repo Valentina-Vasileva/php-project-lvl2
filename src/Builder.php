@@ -9,8 +9,6 @@ function getPropertiesNames(object $object)
     return array_keys(get_object_vars($object));
 }
 
-
-
 function buildDifference(object $firstData, object $secondData)
 {
     $keys = array_merge(getPropertiesNames($firstData), getPropertiesNames($secondData));
