@@ -24,7 +24,7 @@ function formatValue($value)
 
 function formatToPlain(object $data, $path = '')
 {
-    $keys = array_keys((array) $data);
+    $keys = array_keys(get_object_vars($data));
 
     $formatted = array_reduce($keys, function ($acc, $key) use ($data, $path, $keys) {
 

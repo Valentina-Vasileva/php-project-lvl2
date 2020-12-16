@@ -23,7 +23,7 @@ function formatValue($value)
 
 function formatToStylish(object $data, $spaces = '', $startSymbol = "{\n", $level = 1)
 {
-        $keys = array_keys((array) $data);
+        $keys = array_keys(get_object_vars($data));
         $formatted = array_reduce($keys, function ($acc, $key) use ($data, $level) {
 
             if (startsWith($key, '+') || startsWith($key, '-')) {
