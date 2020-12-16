@@ -17,13 +17,21 @@ class DifferTest extends TestCase
         $this->assertEquals("{$pwd}/{$incompletePath}", Differ\getFullPath($incompletePath));
     }
 
+    public function testPrintDifference()
+    {
+        $firstFile = __DIR__ . '/fixtures/TestDoc1.json';
+        $secondFile = __DIR__ . '/fixtures/TestDoc2.json';
+
+        $this->assertEquals(null, Differ\printDifference($firstFile, $secondFile, 'stylish'));
+    }
+
     /**
      * @dataProvider additionProvider
      */
 
     public function testGetDifference($expected, $firstFile, $secondFile, $formatName = 'stylish')
     {
-        $this->assertEquals($expected, Differ\getDifference($firstFile, $secondFile, $formatName));
+        $this->assertEquals($expected, Differ\genDiff($firstFile, $secondFile, $formatName));
     }
 
     public function additionProvider()
