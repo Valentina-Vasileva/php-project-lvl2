@@ -28,4 +28,4 @@ DOC;
 
 $args = Docopt::handle($doc);
 
-printDifference($args->args['<firstFile>'], $args->args['<secondFile>'], $args->args['--format']);
+printDifference($args['<firstFile>'], $args['<secondFile>'], $args['--format']);
