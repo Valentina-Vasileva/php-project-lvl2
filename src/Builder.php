@@ -4,45 +4,47 @@ namespace Gendiff\Builder;
 
 use Illuminate\Support\Collection;
 
+function getPropertiesNames(object $object)
+{
+    return array_keys(get_object_vars($object));
+}
+
+
+
 function buildDifference(object $firstData, object $secondData)
 {
-    $firstDataAsArray = (array) $firstData;
-    $secondDataAsArray = (array) $secondData;
-
-    $keys = array_merge(array_keys($firstDataAsArray), array_keys($secondDataAsArray));
+    $keys = array_merge(getPropertiesNames($firstData), getPropertiesNames($secondData));
     $sortedKeys = collect($keys)->sort()->values()->all();
 
-    $differences = array_reduce($sortedKeys, function ($acc, $key)
- use ($firstDataAsArray, $secondDataAsArray, $firstData, $secondData) {
+    $differences = array_reduce($sortedKeys, function ($acc, $key) use ($firstData, $secondData) {
 
         $keyUnmodified = $key;
         $keyAdded = "+ {$key}";
         $keyDeleted = "- {$key}";
 
-        if (!array_key_exists($key, $firstDataAsArray)) {
-            $acc[$keyAdded] = $secondDataAsArray[$key];
-        } elseif (!array_key_exists($key, $secondDataAsArray)) {
-            $acc[$keyDeleted] = $firstDataAsArray[$key];
-        } elseif ($firstDataAsArray[$key] !== $secondDataAsArray[$key]) {
+        if (!in_array($key, getPropertiesNames($firstData))) {
+            $acc->$keyAdded = $secondData->$key;
+        } elseif (!in_array($key, getPropertiesNames($secondData))) {
+            $acc->$keyDeleted = $firstData->$key;
+        } elseif ($firstData->$key !== $secondData->$key) {
             if (is_object($firstData->$key) && is_object($secondData->$key)) {
-                $acc[$keyUnmodified] = buildDifference($firstData->$key, $secondData->$key);
+                $acc->$keyUnmodified = buildDifference($firstData->$key, $secondData->$key);
             } else {
-                if (!array_key_exists($keyDeleted, $acc)) {
-                    $acc[$keyDeleted] = $firstDataAsArray[$key];
+                if (!isset($acc->$keyDeleted)) {
+                    $acc->$keyDeleted = $firstData->$key;
                 } else {
-                    $acc[$keyAdded] = $secondDataAsArray[$key];
+                    $acc->$keyAdded = $secondData->$key;
                 }
             }
         } else {
             if (is_object($firstData->$key) && is_object($secondData->$key)) {
-                $acc[$keyUnmodified] = buildDifference($firstData->$key, $secondData->$key);
+                $acc->$keyUnmodified = buildDifference($firstData->$key, $secondData->$key);
             } else {
-                $acc[$keyUnmodified] = $firstDataAsArray[$key];
+                $acc->$keyUnmodified = $firstData->$key;
             }
         }
-
         return $acc;
-    }, []);
+    }, new \stdClass());
 
-    return  json_decode(json_encode($differences), false);
+    return  $differences;
 }
