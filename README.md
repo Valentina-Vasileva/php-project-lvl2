@@ -30,9 +30,9 @@ Also you can show yourself a descriptoin of the CLI:
     $ gendiff --help
 
 #### As a library to your project:
-    use Gendiff\Differ\getDifference;
+    use Gendiff\Differ\genDiff;
     
-    getDifference($firstFile, $secondFile, $formatName = 'stylish');
+    genDiff($firstFile, $secondFile, $formatName = 'stylish');
     
 ### Examples of using the package
 
