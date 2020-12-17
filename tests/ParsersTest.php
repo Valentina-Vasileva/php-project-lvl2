@@ -1,9 +1,9 @@
 <?php
 
-namespace Gendiff\Tests;
+namespace Differ\Tests;
 
 use PHPUnit\Framework\TestCase;
-use function Gendiff\Parsers\parse;
+use function Differ\Parsers\parse;
 
 class ParsersTest extends TestCase
 {

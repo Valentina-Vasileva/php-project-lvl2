@@ -1,11 +1,11 @@
 <?php
 
-namespace Gendiff\Differ;
+namespace Differ\Differ;
 
 use function Funct\Strings\startsWith;
-use function Gendiff\Parsers\parse;
-use function Gendiff\Builder\buildDifference;
-use function Gendiff\Formatters\format;
+use function Differ\Parsers\parse;
+use function Differ\Builder\buildDifference;
+use function Differ\Formatters\format;
 
 function getFullPath(string $file)
 {

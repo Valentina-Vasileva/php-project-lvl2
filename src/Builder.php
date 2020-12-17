@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendiff\Builder;
+namespace Differ\Builder;
 
 use Illuminate\Support\Collection;
 

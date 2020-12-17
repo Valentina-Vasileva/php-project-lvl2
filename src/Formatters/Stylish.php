@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendiff\Formatters\Stylish;
+namespace Differ\Formatters\Stylish;
 
 use function Funct\Strings\startsWith;
 

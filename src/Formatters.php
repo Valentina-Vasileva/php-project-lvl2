@@ -1,10 +1,10 @@
 <?php
 
-namespace Gendiff\Formatters;
+namespace Differ\Formatters;
 
 use function Funct\Strings\startsWith;
-use function Gendiff\Formatters\Stylish\formatToStylish;
-use function Gendiff\Formatters\Plain\formatToPlain;
+use function Differ\Formatters\Stylish\formatToStylish;
+use function Differ\Formatters\Plain\formatToPlain;
 
 function format(object $data, $format)
 {

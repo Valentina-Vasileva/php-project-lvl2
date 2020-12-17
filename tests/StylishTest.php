@@ -3,7 +3,7 @@
 namespace Gendiff\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Gendiff\Formatters\Stylish;
+use Differ\Formatters\Stylish;
 
 class StylishTest extends TestCase
 {

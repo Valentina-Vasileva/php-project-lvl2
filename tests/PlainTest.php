@@ -1,9 +1,9 @@
 <?php
 
-namespace Gendiff\Tests;
+namespace Differ\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Gendiff\Formatters\Plain;
+use Differ\Formatters\Plain;
 
 class PlainTest extends TestCase
 {
