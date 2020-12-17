@@ -30,7 +30,7 @@ Also you can show yourself a descriptoin of the CLI:
     $ gendiff --help
 
 #### As a library to your project:
-    use Gendiff\Differ\genDiff;
+    use function Gendiff\Differ\genDiff;
     
     genDiff($firstFile, $secondFile, $formatName = 'stylish');
     
