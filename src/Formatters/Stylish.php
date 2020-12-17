@@ -23,25 +23,24 @@ function formatValue($value): string
 
 function formatToStylish(object $data, $spaces = '', $startSymbol = "{\n", $level = 1): string
 {
-        $keys = array_keys(get_object_vars($data));
-        $formatted = array_reduce($keys, function ($acc, $key) use ($data, $level) {
+    $keys = array_keys(get_object_vars($data));
+    $formatted = array_reduce($keys, function ($acc, $key) use ($data, $level) {
 
-            if (startsWith($key, '+') || startsWith($key, '-')) {
-                $newSpaces = str_repeat(" ", ($level - 1) * 4 + 2);
-            } else {
-                $newSpaces = str_repeat(" ", $level * 4);
-            }
-            if (is_object($data->$key)) {
-                $newLevel = "{$newSpaces}{$key}: {\n";
-                $newAcc = $acc . $newLevel . formatToStylish($data->$key, $newSpaces, "", $level + 1) . "\n";
-            } else {
-                $formattedValue = formatValue($data->$key);
-                $newAcc = $acc . "{$newSpaces}{$key}: {$formattedValue}\n";
-            }
-            return $newAcc;
-        }, $startSymbol);
+        if (startsWith($key, '+') || startsWith($key, '-')) {
+            $newSpaces = str_repeat(" ", ($level - 1) * 4 + 2);
+        } else {
+            $newSpaces = str_repeat(" ", $level * 4);
+        }
+        if (is_object($data->$key)) {
+            $newLevel = "{$newSpaces}{$key}: {\n";
+            $newAcc = $acc . $newLevel . formatToStylish($data->$key, $newSpaces, "", $level + 1) . "\n";
+        } else {
+            $formattedValue = formatValue($data->$key);
+            $newAcc = $acc . "{$newSpaces}{$key}: {$formattedValue}\n";
+        }
+        return $newAcc;
+    }, $startSymbol);
 
-        $spaces = str_repeat(" ", ($level - 1) * 4);
-        $formatted = $formatted . "{$spaces}}";
-        return $formatted;
+    $spaces = str_repeat(" ", ($level - 1) * 4);
+    return $formatted . "{$spaces}}";
 }
