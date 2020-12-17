@@ -44,7 +44,7 @@ class DifferTest extends TestCase
         $docAfterStylish = file_get_contents(__DIR__ . '/fixtures/ResultStylish.txt');
         $docAfterPlain = file_get_contents(__DIR__ . '/fixtures/ResultPlain.txt');
         $docAfterJson = file_get_contents(__DIR__ . '/fixtures/ResultJson.txt');
-        
+
         $docJsonFirst = __DIR__ . '/fixtures/TestDoc1.json';
         $docJsonSecond = __DIR__ . '/fixtures/TestDoc2.json';
         $docYamlFirst = __DIR__ . '/fixtures/TestDoc1.yaml';

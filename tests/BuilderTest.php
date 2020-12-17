@@ -9,13 +9,13 @@ class BuilderTest extends TestCase
 {
     public function testGetPropertiesNames()
     {
-        $object = new \stdClass;
+        $object = new \stdClass();
         $object->one = 'testone';
         $object->two = 2;
         $expected = ['one', 'two'];
         $this->assertEquals($expected, Builder\getPropertiesNames($object));
     }
-    
+
     public function testBuildDifference()
     {
         $firstData = [

@@ -3,6 +3,7 @@
 namespace Differ\Tests;
 
 use PHPUnit\Framework\TestCase;
+
 use function Differ\Parsers\parse;
 
 class ParsersTest extends TestCase
@@ -11,7 +12,7 @@ class ParsersTest extends TestCase
     {
         $pathToJsonFile = __DIR__ . '/fixtures/TestDoc1.json';
         $pathToYamlFile = __DIR__ . '/fixtures/TestDoc1.yaml';
-        
+
         $arrayOfData = [
             "common" => [
               "setting1" => null,
@@ -38,7 +39,7 @@ class ParsersTest extends TestCase
               ]
             ]
         ];
-      
+
         $expected = json_decode(json_encode($arrayOfData), false);
         $this->assertEquals($expected, parse($pathToJsonFile));
         $this->assertEquals($expected, parse($pathToYamlFile));
