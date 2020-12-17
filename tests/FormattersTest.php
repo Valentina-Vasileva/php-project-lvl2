@@ -68,10 +68,12 @@ class FormattersTest extends TestCase
 
         $docAfterStylish = file_get_contents(__DIR__ . '/fixtures/ResultStylish.txt');
         $docAfterPlain = file_get_contents(__DIR__ . '/fixtures/ResultPlain.txt');
+        $docAfterJson = file_get_contents(__DIR__ . '/fixtures/ResultJson.txt');
 
         return [
             [$docAfterStylish, $objectDataBefore, 'stylish'],
-            [$docAfterPlain, $objectDataBefore, 'plain']
+            [$docAfterPlain, $objectDataBefore, 'plain'],
+            [$docAfterJson, $objectDataBefore, 'json']
         ];
     }
 }

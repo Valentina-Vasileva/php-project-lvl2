@@ -38,9 +38,12 @@ class DifferTest extends TestCase
     {
         $stylishFormatName = 'stylish';
         $plainFormatName = 'plain';
+        $jsonFormatName = 'json';
+
 
         $docAfterStylish = file_get_contents(__DIR__ . '/fixtures/ResultStylish.txt');
         $docAfterPlain = file_get_contents(__DIR__ . '/fixtures/ResultPlain.txt');
+        $docAfterJson = file_get_contents(__DIR__ . '/fixtures/ResultJson.txt');
         
         $docJsonFirst = __DIR__ . '/fixtures/TestDoc1.json';
         $docJsonSecond = __DIR__ . '/fixtures/TestDoc2.json';
@@ -51,7 +54,9 @@ class DifferTest extends TestCase
             [$docAfterStylish, $docJsonFirst, $docJsonSecond],
             [$docAfterStylish, $docYamlFirst, $docYamlSecond, $stylishFormatName],
             [$docAfterPlain, $docJsonFirst, $docJsonSecond, $plainFormatName],
-            [$docAfterPlain, $docYamlFirst, $docYamlSecond, $plainFormatName]
+            [$docAfterPlain, $docYamlFirst, $docYamlSecond, $plainFormatName],
+            [$docAfterJson, $docJsonFirst, $docJsonSecond, $jsonFormatName],
+            [$docAfterJson, $docYamlFirst, $docYamlSecond, $jsonFormatName]
         ];
     }
 }
