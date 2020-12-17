@@ -41,6 +41,5 @@ function formatToStylish(object $data, $spaces = '', $startSymbol = "{\n", $leve
         return $newAcc;
     }, $startSymbol);
 
-    $spaces = str_repeat(" ", ($level - 1) * 4);
-    return $formatted . "{$spaces}}";
+    return $formatted . str_repeat(" ", ($level - 1) * 4) . "}";
 }
