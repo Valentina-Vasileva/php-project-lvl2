@@ -33,7 +33,7 @@ function formatToStylish(object $data, $spaces = '', $startSymbol = "{\n", $leve
             }
             if (is_object($data->$key)) {
                 $acc = $acc . "{$newSpaces}{$key}: {\n";
-                $acc = $acc . formatToStylish($data->$key, $newSpaces, $startSymbol = "", $level + 1);
+                $acc = $acc . formatToStylish($data->$key, $newSpaces, $startSymbol = "", $level + 1) . "\n";
             } else {
                 $formattedValue = formatValue($data->$key);
                 $acc = $acc . "{$newSpaces}{$key}: {$formattedValue}\n";
@@ -42,6 +42,6 @@ function formatToStylish(object $data, $spaces = '', $startSymbol = "{\n", $leve
         }, $startSymbol);
 
         $spaces = str_repeat(" ", ($level - 1) * 4);
-        $formatted = $formatted . "{$spaces}}\n";
+        $formatted = $formatted . "{$spaces}}";
         return $formatted;
 }

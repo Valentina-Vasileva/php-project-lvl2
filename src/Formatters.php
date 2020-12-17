@@ -16,7 +16,7 @@ function format(object $data, $format)
             $formattedData = formatToPlain($data);
             break;
         case ('json'):
-            $formattedData = json_encode($data) . "\n";
+            $formattedData = json_encode($data);
             break;
     }
 
