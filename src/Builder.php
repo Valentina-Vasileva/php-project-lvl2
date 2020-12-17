@@ -20,9 +20,9 @@ function buildDifference(object $firstData, object $secondData)
         $keyAdded = "+ {$key}";
         $keyDeleted = "- {$key}";
 
-        if (!in_array($key, getPropertiesNames($firstData))) {
+        if (!property_exists($firstData, $key)) {
             $acc->$keyAdded = $secondData->$key;
-        } elseif (!in_array($key, getPropertiesNames($secondData))) {
+        } elseif (!property_exists($secondData, $key)) {
             $acc->$keyDeleted = $firstData->$key;
         } elseif ($firstData->$key !== $secondData->$key) {
             if (is_object($firstData->$key) && is_object($secondData->$key)) {
