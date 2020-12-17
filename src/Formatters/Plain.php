@@ -22,7 +22,7 @@ function formatValue($value)
     return $formattedValue;
 }
 
-function formatToPlain(object $data, $path = '')
+function formatToPlain(object $data, $path = '', $startSymbols = '')
 {
     $keys = array_keys(get_object_vars($data));
 
@@ -33,21 +33,21 @@ function formatToPlain(object $data, $path = '')
         $deletedKey = "- {$trimmedKey}";
 
         if (startsWith($key, '-')) {
-            $acc = property_exists($data, $addedKey) ? $acc : $acc . "Property '{$path}{$trimmedKey}' was removed\n";
+            $acc = property_exists($data, $addedKey) ? $acc : $acc . "\nProperty '{$path}{$trimmedKey}' was removed";
         } elseif (startsWith($key, '+')) {
             if (property_exists($data, $deletedKey)) {
                 $fromValue = formatValue($data->$deletedKey);
                 $toValue = formatValue($data->$key);
-                $acc = $acc . "Property '{$path}{$trimmedKey}' was updated. From {$fromValue} to {$toValue}\n";
+                $acc = $acc . "\nProperty '{$path}{$trimmedKey}' was updated. From {$fromValue} to {$toValue}";
             } else {
                 $valueAdded = formatValue($data->$key);
-                $acc = $acc . "Property '{$path}{$trimmedKey}' was added with value: {$valueAdded}\n";
+                $acc = $acc . "\nProperty '{$path}{$trimmedKey}' was added with value: {$valueAdded}";
             }
         } else {
-            $acc = is_object($data->$key) ? $acc . formatToPlain($data->$key, "{$path}{$key}.") : $acc;
+            $acc = is_object($data->$key) ? $acc . formatToPlain($data->$key, "{$path}{$key}.", "\n") : $acc;
         }
         return $acc;
     }, "");
 
-    return $formatted;
+    return substr($startSymbols . $formatted, 1);
 }
