@@ -81,7 +81,6 @@ class PlainTest extends TestCase
         ];
 
         $objectDataBefore = json_decode(json_encode($dataBefore), false);
-
         $docAfter = file_get_contents(__DIR__ . '/fixtures/ResultPlain.txt');
         $this->assertEquals($docAfter, Plain\formatToPlain($objectDataBefore));
     }
