@@ -7,7 +7,7 @@
 GENDIFF
 ========
 
-A PHP package which shows difference (stylish or plain format) between two files (yaml, json).
+A PHP package which shows difference (stylish, plain or json format) between two files (yaml, json).
 
 Installation  
 ------------
@@ -48,3 +48,6 @@ Also you can show yourself a descriptoin of the CLI:
 
 #### complex *.json/*.yaml files to plain format:
 [![asciicast](https://asciinema.org/a/55oPisizLekmOWzF798ILwKcV.svg)](https://asciinema.org/a/55oPisizLekmOWzF798ILwKcV)
+
+#### complex *.json/*.yaml files to json format:
+[![asciicast](https://asciinema.org/a/mEyJhajIGdS3NL1OzHiBGtRIh.svg)](https://asciinema.org/a/mEyJhajIGdS3NL1OzHiBGtRIh)
