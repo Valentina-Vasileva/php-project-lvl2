@@ -33,9 +33,9 @@ function formatToPlain(object $data, $path = '')
         $deletedKey = "- {$trimmedKey}";
 
         if (startsWith($key, '-')) {
-            $acc = in_array($addedKey, $keys) ? $acc : $acc . "Property '{$path}{$trimmedKey}' was removed\n";
+            $acc = property_exists($data, $addedKey) ? $acc : $acc . "Property '{$path}{$trimmedKey}' was removed\n";
         } elseif (startsWith($key, '+')) {
-            if (in_array($deletedKey, $keys)) {
+            if (property_exists($data, $deletedKey)) {
                 $fromValue = formatValue($data->$deletedKey);
                 $toValue = formatValue($data->$key);
                 $acc = $acc . "Property '{$path}{$trimmedKey}' was updated. From {$fromValue} to {$toValue}\n";
