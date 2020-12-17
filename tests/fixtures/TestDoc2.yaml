@@ -1,6 +1,6 @@
 common:
   follow: false
-  setting1: Value 1
+  setting1: ''
   setting3:
   setting4: blah blah
   setting5:

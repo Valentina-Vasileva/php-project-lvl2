@@ -28,7 +28,7 @@ function buildDifference(object $firstData, object $secondData)
             if (is_object($firstData->$key) && is_object($secondData->$key)) {
                 $acc->$keyUnmodified = buildDifference($firstData->$key, $secondData->$key);
             } else {
-                if (!isset($acc->$keyDeleted)) {
+                if (!property_exists($acc, $keyDeleted)) {
                     $acc->$keyDeleted = $firstData->$key;
                 } else {
                     $acc->$keyAdded = $secondData->$key;

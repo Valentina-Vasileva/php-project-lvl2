@@ -14,7 +14,7 @@ class ParsersTest extends TestCase
         
         $arrayOfData = [
             "common" => [
-              "setting1" => "Value 1",
+              "setting1" => null,
               "setting2" => 200,
               "setting3" => true,
               "setting6" => [

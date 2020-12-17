@@ -29,7 +29,7 @@ class DifferTest extends TestCase
      * @dataProvider additionProvider
      */
 
-    public function testGetDifference($expected, $firstFile, $secondFile, $formatName = 'stylish')
+    public function testGenDiff($expected, $firstFile, $secondFile, $formatName = 'stylish')
     {
         $this->assertEquals($expected, Differ\genDiff($firstFile, $secondFile, $formatName));
     }

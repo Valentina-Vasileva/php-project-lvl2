@@ -35,7 +35,8 @@ class StylishTest extends TestCase
         $dataBefore = [
             "common" => [
                 "+ follow" => false,
-                "setting1" => "Value 1",
+                "- setting1" => null,
+                "+ setting1" => "",
                 "- setting2" => 200,
                 "- setting3" => true,
                 "+ setting3" => null,
