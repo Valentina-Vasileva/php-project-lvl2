@@ -7,7 +7,7 @@ use function Differ\Parsers\parse;
 use function Differ\Builder\buildDifference;
 use function Differ\Formatters\format;
 
-function getFullPath(string $file)
+function getFullPath(string $file): string
 {
     if (!startsWith($file, "/")) {
         $cwd = getcwd();
@@ -18,7 +18,7 @@ function getFullPath(string $file)
     return $fullPathToFile;
 }
 
-function genDiff($firstFile, $secondFile, $formatName = 'stylish')
+function genDiff($firstFile, $secondFile, $formatName = 'stylish'): string
 {
     $parsedFirstFile =  parse(getFullPath($firstFile));
     $parsedSecondFile = parse(getFullPath($secondFile));
@@ -29,7 +29,7 @@ function genDiff($firstFile, $secondFile, $formatName = 'stylish')
     return $formatted;
 }
 
-function printDifference($firstFile, $secondFile, $formatName)
+function printDifference($firstFile, $secondFile, $formatName): void
 {
     print_r(genDiff($firstFile, $secondFile, $formatName));
 }

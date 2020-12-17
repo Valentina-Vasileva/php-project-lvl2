@@ -4,7 +4,7 @@ namespace Differ\Formatters\Stylish;
 
 use function Funct\Strings\startsWith;
 
-function formatValue($value)
+function formatValue($value): string
 {
     if ($value === false) {
         $formattedValue = 'false';
@@ -21,7 +21,7 @@ function formatValue($value)
     return $formattedValue;
 }
 
-function formatToStylish(object $data, $spaces = '', $startSymbol = "{\n", $level = 1)
+function formatToStylish(object $data, $spaces = '', $startSymbol = "{\n", $level = 1): string
 {
         $keys = array_keys(get_object_vars($data));
         $formatted = array_reduce($keys, function ($acc, $key) use ($data, $level) {

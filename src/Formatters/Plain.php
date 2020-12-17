@@ -4,7 +4,7 @@ namespace Differ\Formatters\Plain;
 
 use function Funct\Strings\startsWith;
 
-function formatValue($value)
+function formatValue($value): string
 {
     if ($value === false) {
         $formattedValue = 'false';
@@ -22,31 +22,31 @@ function formatValue($value)
     return $formattedValue;
 }
 
-function formatToPlain(object $data, $path = '', $startSymbols = '')
+function formatToPlain(object $data, $path = '', $startSymbols = ''): string
 {
     $keys = array_keys(get_object_vars($data));
 
-    $formatted = array_reduce($keys, function ($acc, $key) use ($data, $path, $keys) {
+    $formatted = array_reduce($keys, function ($acc, $key) use ($data, $path) {
 
         $trimmedKey = trim($key, " /+/-");
         $addedKey = "+ {$trimmedKey}";
         $deletedKey = "- {$trimmedKey}";
 
         if (startsWith($key, '-')) {
-            $acc = property_exists($data, $addedKey) ? $acc : $acc . "\nProperty '{$path}{$trimmedKey}' was removed";
+            $newAcc = property_exists($data, $addedKey) ? $acc : $acc . "\nProperty '{$path}{$trimmedKey}' was removed";
         } elseif (startsWith($key, '+')) {
             if (property_exists($data, $deletedKey)) {
                 $fromValue = formatValue($data->$deletedKey);
                 $toValue = formatValue($data->$key);
-                $acc = $acc . "\nProperty '{$path}{$trimmedKey}' was updated. From {$fromValue} to {$toValue}";
+                $newAcc = $acc . "\nProperty '{$path}{$trimmedKey}' was updated. From {$fromValue} to {$toValue}";
             } else {
                 $valueAdded = formatValue($data->$key);
-                $acc = $acc . "\nProperty '{$path}{$trimmedKey}' was added with value: {$valueAdded}";
+                $newAcc = $acc . "\nProperty '{$path}{$trimmedKey}' was added with value: {$valueAdded}";
             }
         } else {
-            $acc = is_object($data->$key) ? $acc . formatToPlain($data->$key, "{$path}{$key}.", "\n") : $acc;
+            $newAcc = is_object($data->$key) ? $acc . formatToPlain($data->$key, "{$path}{$key}.", "\n") : $acc;
         }
-        return $acc;
+        return $newAcc;
     }, "");
 
     return substr($startSymbols . $formatted, 1);

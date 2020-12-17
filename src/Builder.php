@@ -4,12 +4,12 @@ namespace Differ\Builder;
 
 use Illuminate\Support\Collection;
 
-function getPropertiesNames(object $object)
+function getPropertiesNames(object $object): array
 {
     return array_keys(get_object_vars($object));
 }
 
-function buildDifference(object $firstData, object $secondData)
+function buildDifference(object $firstData, object $secondData): object
 {
     $keys = array_merge(getPropertiesNames($firstData), getPropertiesNames($secondData));
     $sortedKeys = collect($keys)->sort()->values()->all();
