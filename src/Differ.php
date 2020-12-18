@@ -28,9 +28,3 @@ function genDiff($firstFile, $secondFile, $formatName = 'stylish'): string
 
     return $formatted;
 }
-
-function printDifference($firstFile, $secondFile, $formatName): void
-{
-    print_r(genDiff($firstFile, $secondFile, $formatName));
-    return;
-}
