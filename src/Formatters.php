@@ -19,7 +19,7 @@ function format(object $data, string $format): string
             $formattedData = formatToPlain($data);
             break;
         case ('json'):
-            $formattedData = json_encode($data);
+            $formattedData = json_encode($data) === false ? '' : json_encode($data);
             break;
         default:
             $formattedData = '';
