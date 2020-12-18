@@ -74,7 +74,8 @@ class FormattersTest extends TestCase
         return [
             [$docAfterStylish, $objectDataBefore, 'stylish'],
             [$docAfterPlain, $objectDataBefore, 'plain'],
-            [$docAfterJson, $objectDataBefore, 'json']
+            [$docAfterJson, $objectDataBefore, 'json'],
+            ['', $objectDataBefore, 'doc']
         ];
     }
 }

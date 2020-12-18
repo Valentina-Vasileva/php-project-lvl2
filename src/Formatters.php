@@ -6,9 +6,12 @@ use function Funct\Strings\startsWith;
 use function Differ\Formatters\Stylish\formatToStylish;
 use function Differ\Formatters\Plain\formatToPlain;
 
-function format(object $data, $format): string
+function format(object $data, string $format): string
 {
     switch ($format) {
+        case (false):
+            $formattedData = '';
+            break;
         case ('stylish'):
             $formattedData = formatToStylish($data);
             break;
@@ -19,7 +22,7 @@ function format(object $data, $format): string
             $formattedData = json_encode($data);
             break;
         default:
-            $formattedData = null;
+            $formattedData = '';
     }
 
     return $formattedData;
