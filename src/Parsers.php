@@ -8,7 +8,11 @@ function parse(string $pathTofile): object
 {
     $extension = pathinfo($pathTofile, PATHINFO_EXTENSION);
 
-    $data = file_get_contents($pathTofile) === false ? '' : file_get_contents($pathTofile);
+    if (file_get_contents($pathTofile) === false) {
+        return new \stdClass();
+    }
+
+    $data = file_get_contents($pathTofile);
 
     switch ($extension) {
         case ('json'):
