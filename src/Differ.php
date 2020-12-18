@@ -32,4 +32,5 @@ function genDiff($firstFile, $secondFile, $formatName = 'stylish'): string
 function printDifference($firstFile, $secondFile, $formatName): void
 {
     print_r(genDiff($firstFile, $secondFile, $formatName));
+    return;
 }
