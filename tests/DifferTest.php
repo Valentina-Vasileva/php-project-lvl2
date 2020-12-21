@@ -7,16 +7,6 @@ use Differ\Differ;
 
 class DifferTest extends TestCase
 {
-
-    public function testGetFullPath()
-    {
-        $fullPath = '/home/User/TestDir/Doc.json';
-        $incompletePath = 'Doc.json';
-        $pwd = getcwd();
-        $this->assertEquals($fullPath, Differ\getFullPath($fullPath));
-        $this->assertEquals("{$pwd}/{$incompletePath}", Differ\getFullPath($incompletePath));
-    }
-
     /**
      * @dataProvider additionProvider
      */
@@ -31,7 +21,6 @@ class DifferTest extends TestCase
         $stylishFormatName = 'stylish';
         $plainFormatName = 'plain';
         $jsonFormatName = 'json';
-
 
         $docAfterStylish = file_get_contents(__DIR__ . '/fixtures/ResultStylish.txt');
         $docAfterPlain = file_get_contents(__DIR__ . '/fixtures/ResultPlain.txt');
