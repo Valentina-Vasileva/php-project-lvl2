@@ -7,21 +7,26 @@ use function Differ\Parsers\parse;
 use function Differ\Builder\buildDifference;
 use function Differ\Formatters\format;
 
-function getFullPath(string $file): string
+function getDataFromFile(string $pathToFile): string
 {
-    if (!startsWith($file, "/")) {
+    if (!startsWith($pathToFile, "/")) {
         $cwd = getcwd();
-        $fullPathToFile = "{$cwd}/{$file}";
+        $fullPathToFile = "{$cwd}/{$pathToFile}";
     } else {
-        $fullPathToFile = $file;
+        $fullPathToFile = $pathToFile;
     }
-    return $fullPathToFile;
+
+    $data = file_get_contents($fullPathToFile) === false ? '' : file_get_contents($fullPathToFile);
+    return $data;
 }
 
 function genDiff($firstPathToFile, $secondPathToFile, $formatName = 'stylish'): string
 {
-    $parsedFirstFile =  parse(getFullPath($firstPathToFile));
-    $parsedSecondFile = parse(getFullPath($secondPathToFile));
+    $firstData = getDataFromFile($firstPathToFile);
+    $secondData = getDataFromFile($secondPathToFile);
+
+    $parsedFirstFile =  parse($firstData, pathinfo($firstPathToFile, PATHINFO_EXTENSION));
+    $parsedSecondFile = parse($secondData, pathinfo($secondPathToFile, PATHINFO_EXTENSION));
 
     $differences = buildDifference($parsedFirstFile, $parsedSecondFile);
     $formatted = format($differences, $formatName);
