@@ -13,9 +13,9 @@
     	"phpcs": "phpcs",
     	"test": "phpunit tests"
     },
-    "autoload": {
-     "psr-4": {
-      "Gendiff\\Tests\\": "tests"
+    "autoload-dev": {
+        "psr-4": {
+        "Gendiff\\Tests\\": "tests"
     },
     	"files": [
             "src/Differ.php",
