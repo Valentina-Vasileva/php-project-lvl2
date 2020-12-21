@@ -13,10 +13,7 @@
     	"phpcs": "phpcs",
     	"test": "phpunit tests"
     },
-    "autoload-dev": {
-        "psr-4": {
-        "Gendiff\\Tests\\": "tests"
-    },
+    "autoload": {
     	"files": [
             "src/Differ.php",
             "src/Parsers.php",
@@ -25,6 +22,11 @@
             "src/Formatters/Stylish.php",
             "src/Formatters/Plain.php"
     	]
+    },
+    "autoload-dev": {
+        "psr-4": {
+        "Gendiff\\Tests\\": "tests"
+        }
     },
     "require": {
         "docopt/docopt": "^1.0",

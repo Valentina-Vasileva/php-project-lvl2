@@ -18,10 +18,10 @@ function getFullPath(string $file): string
     return $fullPathToFile;
 }
 
-function genDiff($firstFile, $secondFile, $formatName = 'stylish'): string
+function genDiff($firstPathToFile, $secondPathToFile, $formatName = 'stylish'): string
 {
-    $parsedFirstFile =  parse(getFullPath($firstFile));
-    $parsedSecondFile = parse(getFullPath($secondFile));
+    $parsedFirstFile =  parse(getFullPath($firstPathToFile));
+    $parsedSecondFile = parse(getFullPath($secondPathToFile));
 
     $differences = buildDifference($parsedFirstFile, $parsedSecondFile);
     $formatted = format($differences, $formatName);
