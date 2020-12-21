@@ -20,7 +20,6 @@ function createNode(string $key, string $type, array $children, $pastValue, $new
     ];
 }
 
-
 function buildDiff(object $firstData, object $secondData): array
 {
     $keys = array_merge(getPropertiesNames($firstData), getPropertiesNames($secondData));
