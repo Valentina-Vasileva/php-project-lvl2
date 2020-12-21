@@ -9,40 +9,39 @@ function getPropertiesNames(object $object): array
     return array_keys(get_object_vars($object));
 }
 
-function buildDifference(object $firstData, object $secondData): object
+function createNode(string $key, string $type, array $children, $pastValue, $newValue): array
+{
+    return [
+        "key" => $key,
+        "type" => $type,
+        "children" => $children,
+        "pastValue" => $pastValue,
+        "newValue" => $newValue
+    ];
+}
+
+
+function buildDiff(object $firstData, object $secondData): array
 {
     $keys = array_merge(getPropertiesNames($firstData), getPropertiesNames($secondData));
-    $sortedKeys = collect($keys)->sort()->values()->all();
+    $sortedKeys = collect($keys)->unique()->sort()->values()->all();
 
     $differences = array_reduce($sortedKeys, function ($acc, $key) use ($firstData, $secondData) {
-
-        $keyUnmodified = $key;
-        $keyAdded = "+ {$key}";
-        $keyDeleted = "- {$key}";
-
         if (!property_exists($firstData, $key)) {
-            $acc->$keyAdded = $secondData->$key;
+            $acc[] = createNode($key, "added", [], null, $secondData->$key);
         } elseif (!property_exists($secondData, $key)) {
-            $acc->$keyDeleted = $firstData->$key;
+            $acc[] = createNode($key, "deleted", [], $firstData->$key, null);
         } elseif ($firstData->$key !== $secondData->$key) {
             if (is_object($firstData->$key) && is_object($secondData->$key)) {
-                $acc->$keyUnmodified = buildDifference($firstData->$key, $secondData->$key);
+                $acc[] = createNode($key, "unchanged", buildDiff($firstData->$key, $secondData->$key), null, null);
             } else {
-                if (!property_exists($acc, $keyDeleted)) {
-                    $acc->$keyDeleted = $firstData->$key;
-                } else {
-                    $acc->$keyAdded = $secondData->$key;
-                }
+                $acc[] = createNode($key, "changed", [], $firstData->$key, $secondData->$key);
             }
         } else {
-            if (is_object($firstData->$key) && is_object($secondData->$key)) {
-                $acc->$keyUnmodified = buildDifference($firstData->$key, $secondData->$key);
-            } else {
-                $acc->$keyUnmodified = $firstData->$key;
-            }
+                $acc[] =  createNode($key, "unchanged", [], $firstData->$key, $secondData->$key);
         }
         return $acc;
-    }, new \stdClass());
+    }, []);
 
     return  $differences;
 }

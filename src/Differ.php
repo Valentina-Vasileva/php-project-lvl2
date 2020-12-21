@@ -4,7 +4,7 @@ namespace Differ\Differ;
 
 use function Funct\Strings\startsWith;
 use function Differ\Parsers\parse;
-use function Differ\Builder\buildDifference;
+use function Differ\Builder\buildDiff;
 use function Differ\Formatters\format;
 
 function getDataFromFile(string $pathToFile): string
@@ -28,7 +28,7 @@ function genDiff($firstPathToFile, $secondPathToFile, $formatName = 'stylish'): 
     $parsedFirstFile =  parse($firstData, pathinfo($firstPathToFile, PATHINFO_EXTENSION));
     $parsedSecondFile = parse($secondData, pathinfo($secondPathToFile, PATHINFO_EXTENSION));
 
-    $differences = buildDifference($parsedFirstFile, $parsedSecondFile);
+    $differences = buildDiff($parsedFirstFile, $parsedSecondFile);
     $formatted = format($differences, $formatName);
 
     return $formatted;
