@@ -22,7 +22,7 @@ function formatValue($value): string
 
 function formatToPlain(array $data, $path = '', $startSymbols = ''): string
 {
-    $formatted = array_reduce($data, function ($acc, $node) use ($data, $path) {
+    $formatted = array_reduce($data, function ($acc, $node) use ($path) {
 
         $formattedPastValue = formatValue($node['pastValue']);
         $formattedNewValue = formatValue($node['newValue']);
