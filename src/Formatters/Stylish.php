@@ -15,11 +15,11 @@ function formatValue($value, int $level): string
         
         $formattedValue = array_reduce($keys, function($acc, $key) use ($value, $level) {
             $levelSpaces = str_repeat(" ", ($level+1) * 4);
-            $newAcc = "{$acc}{$levelSpaces}{$key}:  " . formatValue($value->$key, $level+1) . "\n";
+            $newAcc = "{$acc}{$levelSpaces}{$key}: " . formatValue($value->$key, $level+1) . "\n";
             return $newAcc;
         }, "{\n");
 
-        return $formattedValue . str_repeat(" ", $level * 4) . "}\n";
+        return $formattedValue . str_repeat(" ", $level * 4) . "}";
     } elseif (is_array($value)) {
         return array_reduce($value, fn($acc, $item) => $acc . "{$item} ", "{ ") . "}";
     } else {
@@ -37,7 +37,7 @@ function formatToStylish($data, $startSymbol = "{\n", $level = 1): string
         $addedNode = "{$levelSpaces}  + {$node['key']}: {$formattedNewValue}\n";
         $deletedNode = "{$levelSpaces}  - {$node['key']}: {$formattedPastValue}\n";
         $unchangedNode = "{$levelSpaces}    {$node['key']}: {$formattedNewValue}\n";
-        $complexNode = "{$levelSpaces}    {$node['key']}:  {\n";
+        $complexNode = "{$levelSpaces}    {$node['key']}: {\n";
 
         if ($node["type"] === "added") {
             $newAcc = "{$acc}{$addedNode}";
