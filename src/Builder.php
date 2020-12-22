@@ -42,5 +42,5 @@ function buildDiff(object $firstData, object $secondData): array
         return $node;
     }, $sortedKeys);
 
-    return  $differences;
+    return $differences;
 }
