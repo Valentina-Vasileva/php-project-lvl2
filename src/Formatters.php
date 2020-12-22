@@ -6,7 +6,7 @@ use function Funct\Strings\startsWith;
 use function Differ\Formatters\Stylish\formatToStylish;
 use function Differ\Formatters\Plain\formatToPlain;
 
-function format(object $data, string $format): string
+function format(array $data, string $format): string
 {
     switch ($format) {
         case (false):

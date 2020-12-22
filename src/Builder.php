@@ -9,7 +9,7 @@ function getPropertiesNames(object $object): array
     return array_keys(get_object_vars($object));
 }
 
-function createNode(string $key, string $type, array $children, $pastValue, $newValue): array
+function createNode(string $key, string $type, $children, $pastValue, $newValue): array
 {
     return [
         "key" => $key,
@@ -32,7 +32,7 @@ function buildDiff(object $firstData, object $secondData): array
             $acc[] = createNode($key, "deleted", [], $firstData->$key, null);
         } elseif ($firstData->$key !== $secondData->$key) {
             if (is_object($firstData->$key) && is_object($secondData->$key)) {
-                $acc[] = createNode($key, "unchanged", buildDiff($firstData->$key, $secondData->$key), null, null);
+                $acc[] = createNode($key, "complex", buildDiff($firstData->$key, $secondData->$key), null, null);
             } else {
                 $acc[] = createNode($key, "changed", [], $firstData->$key, $secondData->$key);
             }

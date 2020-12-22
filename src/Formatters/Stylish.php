@@ -2,41 +2,53 @@
 
 namespace Differ\Formatters\Stylish;
 
-use function Funct\Strings\startsWith;
-
-function formatValue($value): string
+function formatValue($value, int $level): string
 {
     if ($value === false) {
-        $formattedValue = 'false';
+        return 'false';
     } elseif ($value === null) {
-        $formattedValue = 'null';
+        return 'null';
     } elseif ($value === true) {
-        $formattedValue = 'true';
-    } elseif (is_array($value)) {
-        $formattedValue = array_reduce($value, fn($acc, $item) => $acc . "{$item} ", "{ ") . "}";
-    } else {
-        $formattedValue = $value;
-    }
+        return 'true';
+    } elseif (is_object($value)) {
+        $keys = array_keys(get_object_vars($value));
+        
+        $formattedValue = array_reduce($keys, function($acc, $key) use ($value, $level) {
+            $levelSpaces = str_repeat(" ", ($level+1) * 4);
+            $newAcc = "{$acc}{$levelSpaces}{$key}:  " . formatValue($value->$key, $level+1) . "\n";
+            return $newAcc;
+        }, "{\n");
 
-    return $formattedValue;
+        return $formattedValue . str_repeat(" ", $level * 4) . "}\n";
+    } elseif (is_array($value)) {
+        return array_reduce($value, fn($acc, $item) => $acc . "{$item} ", "{ ") . "}";
+    } else {
+        return $value;
+    }
 }
 
-function formatToStylish(object $data, $spaces = '', $startSymbol = "{\n", $level = 1): string
+function formatToStylish($data, $startSymbol = "{\n", $level = 1): string
 {
-    $keys = array_keys(get_object_vars($data));
-    $formatted = array_reduce($keys, function ($acc, $key) use ($data, $level) {
+    $formatted = array_reduce($data, function ($acc, $node) use ($level) {
+        $levelSpaces = str_repeat(" ", ($level - 1) * 4);
+        $formattedPastValue = formatValue($node['pastValue'], $level);
+        $formattedNewValue = formatValue($node['newValue'], $level);
 
-        if (startsWith($key, '+') || startsWith($key, '-')) {
-            $newSpaces = str_repeat(" ", ($level - 1) * 4 + 2);
+        $addedNode = "{$levelSpaces}  + {$node['key']}: {$formattedNewValue}\n";
+        $deletedNode = "{$levelSpaces}  - {$node['key']}: {$formattedPastValue}\n";
+        $unchangedNode = "{$levelSpaces}    {$node['key']}: {$formattedNewValue}\n";
+        $complexNode = "{$levelSpaces}    {$node['key']}:  {\n";
+
+        if ($node["type"] === "added") {
+            $newAcc = "{$acc}{$addedNode}";
+        } elseif ($node["type"] === "deleted") {
+            $newAcc = "{$acc}{$deletedNode}";
+        } elseif ($node["type"] === "changed") {
+            $newAcc = "{$acc}{$deletedNode}{$addedNode}";
+        } elseif ($node["type"] === "unchanged") {
+            $newAcc = "{$acc}{$unchangedNode}";
         } else {
-            $newSpaces = str_repeat(" ", $level * 4);
-        }
-        if (is_object($data->$key)) {
-            $newLevel = "{$newSpaces}{$key}: {\n";
-            $newAcc = $acc . $newLevel . formatToStylish($data->$key, $newSpaces, "", $level + 1) . "\n";
-        } else {
-            $formattedValue = formatValue($data->$key);
-            $newAcc = $acc . "{$newSpaces}{$key}: {$formattedValue}\n";
+            $newAcc = "{$acc}{$complexNode}" . formatToStylish($node["children"], "", $level + 1) . "\n";
         }
         return $newAcc;
     }, $startSymbol);
