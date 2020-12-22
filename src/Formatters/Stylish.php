@@ -12,10 +12,10 @@ function formatValue($value, int $level): string
         return 'true';
     } elseif (is_object($value)) {
         $keys = array_keys(get_object_vars($value));
-        
-        $formattedValue = array_reduce($keys, function($acc, $key) use ($value, $level) {
-            $levelSpaces = str_repeat(" ", ($level+1) * 4);
-            $newAcc = "{$acc}{$levelSpaces}{$key}: " . formatValue($value->$key, $level+1) . "\n";
+
+        $formattedValue = array_reduce($keys, function ($acc, $key) use ($value, $level) {
+            $levelSpaces = str_repeat(" ", ($level + 1) * 4);
+            $newAcc = "{$acc}{$levelSpaces}{$key}: " . formatValue($value->$key, $level + 1) . "\n";
             return $newAcc;
         }, "{\n");
 
