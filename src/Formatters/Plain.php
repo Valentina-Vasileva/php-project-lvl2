@@ -2,8 +2,6 @@
 
 namespace Differ\Formatters\Plain;
 
-use function Funct\Strings\startsWith;
-
 function formatValue($value): string
 {
     if ($value === false) {
@@ -22,29 +20,25 @@ function formatValue($value): string
     return $formattedValue;
 }
 
-function formatToPlain(object $data, $path = '', $startSymbols = ''): string
+function formatToPlain(array $data, $path = '', $startSymbols = ''): string
 {
-    $keys = array_keys(get_object_vars($data));
-
-    $formatted = array_reduce($keys, function ($acc, $key) use ($data, $path) {
-
-        $trimmedKey = trim($key, " /+/-");
-        $addedKey = "+ {$trimmedKey}";
-        $deletedKey = "- {$trimmedKey}";
-
-        if (startsWith($key, '-')) {
-            $newAcc = property_exists($data, $addedKey) ? $acc : $acc . "\nProperty '{$path}{$trimmedKey}' was removed";
-        } elseif (startsWith($key, '+')) {
-            if (property_exists($data, $deletedKey)) {
-                $fromValue = formatValue($data->$deletedKey);
-                $toValue = formatValue($data->$key);
-                $newAcc = $acc . "\nProperty '{$path}{$trimmedKey}' was updated. From {$fromValue} to {$toValue}";
-            } else {
-                $valueAdded = formatValue($data->$key);
-                $newAcc = $acc . "\nProperty '{$path}{$trimmedKey}' was added with value: {$valueAdded}";
-            }
+    $formatted = array_reduce($data, function ($acc, $node) use ($data, $path) {
+        
+        $formattedPastValue = formatValue($node['pastValue']);
+        $formattedNewValue = formatValue($node['newValue']);
+        $pathToNode = "{$path}{$node['key']}";
+        
+        if ($node["type"] === "added") {
+            $newAcc = $acc . "\nProperty '{$pathToNode}' was added with value: {$formattedNewValue}";
+        } elseif ($node["type"] === "deleted") {
+            $newAcc = $acc . "\nProperty '{$pathToNode}' was removed";
+        } elseif ($node["type"] === "changed") {
+            $newAcc = $acc 
+            . "\nProperty '{$pathToNode}' was updated. From {$formattedPastValue} to {$formattedNewValue}";
+        } elseif ($node["type"] === "complex") {
+            $newAcc = $acc . formatToPlain($node["children"], "{$pathToNode}.", "\n");
         } else {
-            $newAcc = is_object($data->$key) ? $acc . formatToPlain($data->$key, "{$path}{$key}.", "\n") : $acc;
+            $newAcc = $acc;
         }
         return $newAcc;
     }, "");
