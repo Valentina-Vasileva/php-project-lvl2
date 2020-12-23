@@ -7,6 +7,30 @@ use Differ\Differ;
 
 class DifferTest extends TestCase
 {
+    public function testFileExistenseExceptionfined()
+    {
+        $firstFile = __DIR__ . '/fixtures/TestDoc1.json';
+        $secondFile = __DIR__ . '/fixtures/DoesNotExist.json';
+        $this->expectExceptionMessage("The file '{$secondFile}' doesn't exist\n");
+        Differ\genDiff($firstFile, $secondFile, 'plain');
+    }
+
+    public function testExtensionException()
+    {
+        $firstFile = __DIR__ . '/fixtures/TestDoc1.json';
+        $secondFile = __DIR__ . '/fixtures/TestDoc.doc';
+        $this->expectExceptionMessage("The extension 'doc' is not supported\n");
+        Differ\genDiff($firstFile, $secondFile, 'json');
+    }
+
+    public function testFormatException()
+    {
+        $firstFile = __DIR__ . '/fixtures/TestDoc1.json';
+        $secondFile = __DIR__ . '/fixtures/TestDoc2.json';
+        $this->expectExceptionMessage("The report format 'smth' is not supported\n");
+        Differ\genDiff($firstFile, $secondFile, 'smth');
+    }
+
     /**
      * @dataProvider additionProvider
      */
