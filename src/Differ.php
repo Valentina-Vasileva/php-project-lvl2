@@ -16,6 +16,11 @@ function getDataFromFile(string $pathToFile): string
         $fullPathToFile = $pathToFile;
     }
 
+    if (!file_exists($fullPathToFile)) {
+        $FileExistenseException = new \Exception("The file '{$fullPathToFile}' doesn't exists");
+        throw $FileExistenseException;
+    }
+
     $data = file_get_contents($fullPathToFile) === false ? '' : file_get_contents($fullPathToFile);
     return $data;
 }
