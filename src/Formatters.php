@@ -22,8 +22,8 @@ function format(array $data, string $format): string
             $formattedData = json_encode($data) === false ? '' : json_encode($data);
             break;
         default:
-            $eormatException = new \Exception("The report format '{$format}' is not supported\n");
-            throw $eormatException;
+            $formatException = new \Exception("The report format '{$format}' is not supported\n");
+            throw $formatException;
     }
 
     return $formattedData;

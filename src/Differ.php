@@ -30,16 +30,16 @@ function genDiff($firstPathToFile, $secondPathToFile, $formatName = 'stylish'): 
     try {
         $firstData = getDataFromFile($firstPathToFile);
         $secondData = getDataFromFile($secondPathToFile);
-    } catch (\Exception $FileExistenseException) {
-        echo $FileExistenseException->getMessage();
+    } catch (\Exception $fileExistenseException) {
+        echo $fileExistenseException->getMessage();
         return '';
     }
 
     try {
         $parsedFirstFile =  parse($firstData, pathinfo($firstPathToFile, PATHINFO_EXTENSION));
         $parsedSecondFile = parse($secondData, pathinfo($secondPathToFile, PATHINFO_EXTENSION));
-    } catch (\Exception $ExtensionException) {
-        echo $ExtensionException->getMessage();
+    } catch (\Exception $extensionException) {
+        echo $extensionException->getMessage();
         return '';
     }
 
@@ -47,8 +47,8 @@ function genDiff($firstPathToFile, $secondPathToFile, $formatName = 'stylish'): 
 
     try {
         $formatted = format($differences, $formatName);
-    } catch (\Exception $FormatException) {
-        echo $FormatException->getMessage();
+    } catch (\Exception $formatException) {
+        echo $formatException->getMessage();
         return '';
     }
 
