@@ -8,13 +8,11 @@ function parse(string $data, string $extension): object
 {
     switch ($extension) {
         case ('json'):
-            $parsed = json_decode($data, false);
-            break;
+            return json_decode($data, false);
         case ('yaml'):
-            $parsed = Yaml::parse($data, Yaml::PARSE_OBJECT_FOR_MAP);
-            break;
+            return Yaml::parse($data, Yaml::PARSE_OBJECT_FOR_MAP);
         default:
-            $parsed = new \stdClass();
+            $ExtensionExeption = new \Exception("The extension '{$extension}' is not supported");
+            throw $ExtensionExeption;
     }
-    return $parsed;
 }
