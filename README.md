@@ -32,7 +32,7 @@ Also you can show yourself a descriptoin of the CLI:
 #### As a library to your project:
     use function Differ\Differ\genDiff;
     
-    genDiff($firstFile, $secondFile, $formatName = 'stylish');
+    genDiff($firstPathToFile, $secondPathToFile, $formatName = 'stylish');
     
 ### Examples of using the package
 

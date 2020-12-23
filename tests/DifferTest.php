@@ -9,35 +9,35 @@ class DifferTest extends TestCase
 {
     public function testFileExistenseException()
     {
-        $firstFile = __DIR__ . '/fixtures/TestDoc1.json';
-        $secondFile = __DIR__ . '/fixtures/DoesNotExist.json';
-        $this->expectOutputString("The file '{$secondFile}' doesn't exist\n");
-        Differ\genDiff($firstFile, $secondFile, 'json');
+        $firstPathToFile = __DIR__ . '/fixtures/TestDoc1.json';
+        $secondPathToFile = __DIR__ . '/fixtures/DoesNotExist.json';
+        $this->expectOutputString("The file '{$secondPathToFile}' doesn't exist\n");
+        Differ\genDiff($firstPathToFile, $secondPathToFile, 'json');
     }
 
     public function testExtensionException()
     {
-        $firstFile = __DIR__ . '/fixtures/TestDoc1.json';
-        $secondFile = __DIR__ . '/fixtures/TestDoc.doc';
+        $firstPathToFile = __DIR__ . '/fixtures/TestDoc1.json';
+        $secondPathToFile = __DIR__ . '/fixtures/TestDoc.doc';
         $this->expectOutputString("The extension 'doc' is not supported\n");
-        Differ\genDiff($firstFile, $secondFile, 'plain');
+        Differ\genDiff($firstPathToFile, $secondPathToFile, 'plain');
     }
 
     public function testFormatException()
     {
-        $firstFile = __DIR__ . '/fixtures/TestDoc1.json';
-        $secondFile = __DIR__ . '/fixtures/TestDoc2.json';
+        $firstPathToFile = __DIR__ . '/fixtures/TestDoc1.json';
+        $secondPathToFile = __DIR__ . '/fixtures/TestDoc2.json';
         $this->expectOutputString("The report format 'smth' is not supported\n");
-        Differ\genDiff($firstFile, $secondFile, 'smth');
+        Differ\genDiff($firstPathToFile, $secondPathToFile, 'smth');
     }
 
     /**
      * @dataProvider additionProvider
      */
 
-    public function testGenDiff($expected, $firstFile, $secondFile, $formatName = 'stylish')
+    public function testGenDiff($expected, $firstPathToFile, $secondPathToFile, $formatName = 'stylish')
     {
-        $this->assertEquals($expected, Differ\genDiff($firstFile, $secondFile, $formatName));
+        $this->assertEquals($expected, Differ\genDiff($firstPathToFile, $secondPathToFile, $formatName));
     }
 
     public function additionProvider()
