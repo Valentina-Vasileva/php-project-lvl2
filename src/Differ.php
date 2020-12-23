@@ -17,7 +17,7 @@ function getDataFromFile(string $pathToFile): string
     }
 
     if (!file_exists($fullPathToFile)) {
-        $FileExistenseException = new \Exception("The file '{$fullPathToFile}' doesn't exists");
+        $FileExistenseException = new \Exception("The file '{$fullPathToFile}' doesn't exists\n");
         throw $FileExistenseException;
     }
 
