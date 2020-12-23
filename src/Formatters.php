@@ -10,21 +10,15 @@ function format(array $data, string $format): string
 {
     switch ($format) {
         case (false):
-            $formattedData = '';
-            break;
+            return '';
         case ('stylish'):
-            $formattedData = formatToStylish($data);
-            break;
+            return formatToStylish($data);
         case ('plain'):
-            $formattedData = formatToPlain($data);
-            break;
+            return formatToPlain($data);
         case ('json'):
-            $formattedData = json_encode($data) === false ? '' : json_encode($data);
-            break;
+            return json_encode($data) === false ? '' : json_encode($data);
         default:
             $formatException = new \Exception("The report format '{$format}' is not supported\n");
             throw $formatException;
     }
-
-    return $formattedData;
 }
