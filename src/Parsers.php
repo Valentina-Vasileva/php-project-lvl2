@@ -12,7 +12,7 @@ function parse(string $data, string $extension): object
         case ('yaml'):
             return Yaml::parse($data, Yaml::PARSE_OBJECT_FOR_MAP);
         default:
-            $ExtensionExeption = new \Exception("The extension '{$extension}' is not supported");
-            throw $ExtensionExeption;
+            $ExtensionException = new \Exception("The extension '{$extension}' is not supported");
+            throw $ExtensionException;
     }
 }

@@ -22,7 +22,8 @@ function format(array $data, string $format): string
             $formattedData = json_encode($data) === false ? '' : json_encode($data);
             break;
         default:
-            $formattedData = '';
+            $FormatException = new \Exception("The report format '{$format}' is not supported");
+            throw $FormatException;
     }
 
     return $formattedData;
