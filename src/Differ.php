@@ -27,14 +27,27 @@ function getDataFromFile(string $pathToFile): string
 
 function genDiff($firstPathToFile, $secondPathToFile, $formatName = 'stylish'): string
 {
-    $firstData = getDataFromFile($firstPathToFile);
-    $secondData = getDataFromFile($secondPathToFile);
+    try {
+        $firstData = getDataFromFile($firstPathToFile);
+        $secondData = getDataFromFile($secondPathToFile);
+    } catch (\Exception $FileExistenseException) {
+        echo $FileExistenseException->getMessage();
+    }
 
-    $parsedFirstFile =  parse($firstData, pathinfo($firstPathToFile, PATHINFO_EXTENSION));
-    $parsedSecondFile = parse($secondData, pathinfo($secondPathToFile, PATHINFO_EXTENSION));
+    try {
+        $parsedFirstFile =  parse($firstData, pathinfo($firstPathToFile, PATHINFO_EXTENSION));
+        $parsedSecondFile = parse($secondData, pathinfo($secondPathToFile, PATHINFO_EXTENSION));
+    } catch (\Exception $ExtensionException) {
+        echo $ExtensionException->getMessage();
+    }
 
     $differences = buildDiff($parsedFirstFile, $parsedSecondFile);
-    $formatted = format($differences, $formatName);
+
+    try {
+        $formatted = format($differences, $formatName);
+    } catch (\Exception $FormatException) {
+        echo $FormatException->getMessage();
+    }
 
     return $formatted;
 }
