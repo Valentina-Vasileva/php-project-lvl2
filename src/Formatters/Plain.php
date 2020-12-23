@@ -5,19 +5,18 @@ namespace Differ\Formatters\Plain;
 function formatValue($value): string
 {
     if ($value === false) {
-        $formattedValue = 'false';
+        return 'false';
     } elseif ($value === null) {
-        $formattedValue = 'null';
+        return 'null';
     } elseif ($value === true) {
-        $formattedValue = 'true';
+        return 'true';
     } elseif (is_array($value) || is_object($value)) {
-        $formattedValue = '[complex value]';
+        return '[complex value]';
     } elseif (is_string($value)) {
-        $formattedValue = "'$value'";
+        return "'$value'";
     } else {
-        $formattedValue = $value;
+        return $value;
     }
-    return $formattedValue;
 }
 
 function formatToPlain(array $data, $path = '', $startSymbols = ''): string
