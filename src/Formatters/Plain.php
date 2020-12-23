@@ -15,7 +15,7 @@ function formatValue($value): string
     } elseif (is_string($value)) {
         return "'$value'";
     } else {
-        return $value;
+        return "$value";
     }
 }
 
