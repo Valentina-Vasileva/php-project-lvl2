@@ -13,9 +13,9 @@ function formatValue($value): string
     } elseif (is_array($value) || is_object($value)) {
         return '[complex value]';
     } elseif (is_string($value)) {
-        return "'$value'";
+        return "'{$value}'";
     } else {
-        return "$value";
+        return "{$value}";
     }
 }
 
