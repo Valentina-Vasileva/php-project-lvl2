@@ -46,11 +46,11 @@ function genDiff($firstPathToFile, $secondPathToFile, $formatName = 'stylish'): 
     $differences = buildDiff($parsedFirstFile, $parsedSecondFile);
 
     try {
-        $formatted = format($differences, $formatName);
+        $formattedDifferences = format($differences, $formatName);
     } catch (\Exception $formatException) {
         echo $formatException->getMessage();
         return '';
     }
 
-    return $formatted;
+    return $formattedDifferences;
 }
