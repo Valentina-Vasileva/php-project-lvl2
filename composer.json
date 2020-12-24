@@ -23,11 +23,6 @@
             "src/Formatters/Plain.php"
     	]
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Gendiff\\Tests\\": "tests"
-        }
-    },
     "require": {
         "docopt/docopt": "^1.0",
         "funct/funct": "^1.5",
