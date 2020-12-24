@@ -7,26 +7,31 @@ use Differ\Differ;
 
 class DifferTest extends TestCase
 {
+    private function getPathToFixture($fileName)
+    {
+        return __DIR__ . "/fixtures/" . $fileName;
+    }
+
     public function testFileExistenseException()
     {
-        $firstPathToFile = __DIR__ . '/fixtures/TestDoc1.json';
-        $secondPathToFile = __DIR__ . '/fixtures/DoesNotExist.json';
+        $firstPathToFile = $this->getPathToFixture('TestDoc1.json');
+        $secondPathToFile = $this->getPathToFixture('DoesNotExist.json');
         $this->expectOutputString("The file '{$secondPathToFile}' doesn't exist\n");
         Differ\genDiff($firstPathToFile, $secondPathToFile, 'json');
     }
 
     public function testExtensionException()
     {
-        $firstPathToFile = __DIR__ . '/fixtures/TestDoc1.json';
-        $secondPathToFile = __DIR__ . '/fixtures/TestDoc.doc';
+        $firstPathToFile = $this->getPathToFixture('TestDoc1.json');
+        $secondPathToFile = $this->getPathToFixture('TestDoc.doc');
         $this->expectOutputString("The extension 'doc' is not supported\n");
         Differ\genDiff($firstPathToFile, $secondPathToFile, 'plain');
     }
 
     public function testFormatException()
     {
-        $firstPathToFile = __DIR__ . '/fixtures/TestDoc1.json';
-        $secondPathToFile = __DIR__ . '/fixtures/TestDoc2.json';
+        $firstPathToFile = $this->getPathToFixture('TestDoc1.json');
+        $secondPathToFile = $this->getPathToFixture('TestDoc2.json');
         $this->expectOutputString("The report format 'smth' is not supported\n");
         Differ\genDiff($firstPathToFile, $secondPathToFile, 'smth');
     }
@@ -46,14 +51,14 @@ class DifferTest extends TestCase
         $plainFormatName = 'plain';
         $jsonFormatName = 'json';
 
-        $docAfterStylish = file_get_contents(__DIR__ . '/fixtures/ResultStylish.txt');
-        $docAfterPlain = file_get_contents(__DIR__ . '/fixtures/ResultPlain.txt');
-        $docAfterJson = file_get_contents(__DIR__ . '/fixtures/ResultJson.txt');
+        $docAfterStylish = file_get_contents($this->getPathToFixture('ResultStylish.txt'));
+        $docAfterPlain = file_get_contents($this->getPathToFixture('ResultPlain.txt'));
+        $docAfterJson = file_get_contents($this->getPathToFixture('ResultJson.txt'));
 
-        $docJsonFirst = __DIR__ . '/fixtures/TestDoc1.json';
-        $docJsonSecond = __DIR__ . '/fixtures/TestDoc2.json';
-        $docYamlFirst = __DIR__ . '/fixtures/TestDoc1.yaml';
-        $docYamlSecond = __DIR__ . '/fixtures/TestDoc2.yaml';
+        $docJsonFirst = $this->getPathToFixture('TestDoc1.json');
+        $docJsonSecond = $this->getPathToFixture('TestDoc2.json');
+        $docYamlFirst = $this->getPathToFixture('TestDoc1.yaml');
+        $docYamlSecond = $this->getPathToFixture('TestDoc2.yaml');
 
         return [
             [$docAfterStylish, $docJsonFirst, $docJsonSecond],
