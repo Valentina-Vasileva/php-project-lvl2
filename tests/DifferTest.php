@@ -24,8 +24,8 @@ class DifferTest extends TestCase
     {
         $firstPathToFile = $this->getPathToFixture('TestDoc1.json');
         $secondPathToFile = $this->getPathToFixture('TestDoc2.json');
-        $this->expectExceptionMessage("The report format 'smth' is not supported");
-        Differ\genDiff($firstPathToFile, $secondPathToFile, 'smth');
+        $this->expectExceptionMessage("The report format '0' is not supported");
+        Differ\genDiff($firstPathToFile, $secondPathToFile, '0');
     }
 
     public function testReadableFileException()

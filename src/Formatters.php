@@ -9,8 +9,6 @@ use function Differ\Formatters\Plain\formatToPlain;
 function format(array $data, string $format): string
 {
     switch ($format) {
-        case (false):
-            throw new \Exception("The report format '{$format}' is not supported");
         case ('stylish'):
             return formatToStylish($data);
         case ('plain'):
