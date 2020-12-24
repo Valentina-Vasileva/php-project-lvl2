@@ -16,7 +16,7 @@ class DifferTest extends TestCase
     {
         $firstPathToFile = $this->getPathToFixture('TestDoc1.json');
         $secondPathToFile = $this->getPathToFixture('TestDoc.doc');
-        $this->expectExceptionMessage("The extension 'doc' is not supported");
+        $this->expectExceptionMessage("The file format 'doc' is not supported");
         Differ\genDiff($firstPathToFile, $secondPathToFile, 'plain');
     }
 
