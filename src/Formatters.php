@@ -10,13 +10,13 @@ function format(array $data, string $format): string
 {
     switch ($format) {
         case (false):
-            return '';
+            throw new \Exception("The report format '{$format}' is not supported");
         case ('stylish'):
             return formatToStylish($data);
         case ('plain'):
             return formatToPlain($data);
         case ('json'):
-            return json_encode($data) === false ? '' : json_encode($data);
+            return json_encode($data);
         default:
             throw new \Exception("The report format '{$format}' is not supported");
     }
