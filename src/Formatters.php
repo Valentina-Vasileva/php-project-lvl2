@@ -16,7 +16,11 @@ function format(array $data, string $format): string
         case ('plain'):
             return formatToPlain($data);
         case ('json'):
-            return json_encode($data);
+            $formattedData = json_encode($data);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new \Exception(json_last_error_msg());
+            }
+            return $formattedData;
         default:
             throw new \Exception("The report format '{$format}' is not supported");
     }
