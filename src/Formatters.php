@@ -18,7 +18,6 @@ function format(array $data, string $format): string
         case ('json'):
             return json_encode($data) === false ? '' : json_encode($data);
         default:
-            $formatException = new \Exception("The report format '{$format}' is not supported\n");
-            throw $formatException;
+            throw new \Exception("The report format '{$format}' is not supported");
     }
 }

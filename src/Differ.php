@@ -17,8 +17,7 @@ function getDataFromFile(string $pathToFile): string
     }
 
     if (!file_exists($fullPathToFile)) {
-        $fileExistenseException = new \Exception("The file '{$fullPathToFile}' doesn't exist\n");
-        throw $fileExistenseException;
+        throw new \Exception("The file '{$fullPathToFile}' doesn't exist\n");
     }
 
     $data = file_get_contents($fullPathToFile) === false ? '' : file_get_contents($fullPathToFile);
@@ -27,30 +26,15 @@ function getDataFromFile(string $pathToFile): string
 
 function genDiff($firstPathToFile, $secondPathToFile, $formatName = 'stylish'): string
 {
-    try {
-        $firstData = getDataFromFile($firstPathToFile);
-        $secondData = getDataFromFile($secondPathToFile);
-    } catch (\Exception $fileExistenseException) {
-        echo $fileExistenseException->getMessage();
-        return '';
-    }
+    $firstData = getDataFromFile($firstPathToFile);
+    $secondData = getDataFromFile($secondPathToFile);
 
-    try {
-        $parsedFirstFile =  parse($firstData, pathinfo($firstPathToFile, PATHINFO_EXTENSION));
-        $parsedSecondFile = parse($secondData, pathinfo($secondPathToFile, PATHINFO_EXTENSION));
-    } catch (\Exception $extensionException) {
-        echo $extensionException->getMessage();
-        return '';
-    }
+    $parsedFirstFile =  parse($firstData, pathinfo($firstPathToFile, PATHINFO_EXTENSION));
+    $parsedSecondFile = parse($secondData, pathinfo($secondPathToFile, PATHINFO_EXTENSION));
 
     $differences = buildDiff($parsedFirstFile, $parsedSecondFile);
 
-    try {
-        $formattedDifferences = format($differences, $formatName);
-    } catch (\Exception $formatException) {
-        echo $formatException->getMessage();
-        return '';
-    }
+    $formattedDifferences = format($differences, $formatName);
 
     return $formattedDifferences;
 }
