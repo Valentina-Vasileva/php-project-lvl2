@@ -12,7 +12,7 @@ class DifferTest extends TestCase
         return __DIR__ . "/fixtures/" . $fileName;
     }
 
-    public function testExtensionException()
+    public function testFileFormatException()
     {
         $firstPathToFile = $this->getPathToFixture('TestDoc1.json');
         $secondPathToFile = $this->getPathToFixture('TestDoc.doc');
@@ -20,7 +20,7 @@ class DifferTest extends TestCase
         Differ\genDiff($firstPathToFile, $secondPathToFile, 'plain');
     }
 
-    public function testFormatException()
+    public function testReportFormatException()
     {
         $firstPathToFile = $this->getPathToFixture('TestDoc1.json');
         $secondPathToFile = $this->getPathToFixture('TestDoc2.json');
@@ -58,7 +58,7 @@ class DifferTest extends TestCase
         $docJsonFirst = $this->getPathToFixture('TestDoc1.json');
         $docJsonSecond = $this->getPathToFixture('TestDoc2.json');
         $docYamlFirst = $this->getPathToFixture('TestDoc1.yaml');
-        $docYamlSecond = $this->getPathToFixture('TestDoc2.yaml');
+        $docYamlSecond = $this->getPathToFixture('TestDoc2.yml');
 
         return [
             [$docAfterStylish, $docJsonFirst, $docJsonSecond],
