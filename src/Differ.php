@@ -9,11 +9,12 @@ use function Differ\Formatters\format;
 
 function getDataFromFile(string $pathToFile): string
 {
-    if (!file_exists($pathToFile)) {
-        throw new \Exception("The file '{$pathToFile}' doesn't exist");
+    if (!is_readable($pathToFile)) {
+        throw new \Exception("The file '{$pathToFile}' is not readable");
     }
 
-    $data = file_get_contents($pathToFile) === false ? '' : file_get_contents($pathToFile);
+    $data = file_get_contents($pathToFile);
+
     return $data;
 }
 

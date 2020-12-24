@@ -12,14 +12,6 @@ class DifferTest extends TestCase
         return __DIR__ . "/fixtures/" . $fileName;
     }
 
-    public function testFileExistenseException()
-    {
-        $firstPathToFile = $this->getPathToFixture('TestDoc1.json');
-        $secondPathToFile = $this->getPathToFixture('DoesNotExist.json');
-        $this->expectExceptionMessage("The file '{$secondPathToFile}' doesn't exist");
-        Differ\genDiff($firstPathToFile, $secondPathToFile, 'json');
-    }
-
     public function testExtensionException()
     {
         $firstPathToFile = $this->getPathToFixture('TestDoc1.json');
@@ -34,6 +26,14 @@ class DifferTest extends TestCase
         $secondPathToFile = $this->getPathToFixture('TestDoc2.json');
         $this->expectExceptionMessage("The report format 'smth' is not supported");
         Differ\genDiff($firstPathToFile, $secondPathToFile, 'smth');
+    }
+
+    public function testReadableFileException()
+    {
+        $firstPathToFile = $this->getPathToFixture('TestDoc1.json');
+        $secondPathToFile = $this->getPathToFixture('TestNotReadable.json');
+        $this->expectExceptionMessage("The file '{$secondPathToFile}' is not readable");
+        Differ\genDiff($firstPathToFile, $secondPathToFile, 'json');
     }
 
     /**
