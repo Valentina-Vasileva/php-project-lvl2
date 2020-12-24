@@ -2,7 +2,6 @@
 
 namespace Differ\Differ;
 
-use function Funct\Strings\startsWith;
 use function Differ\Parsers\parse;
 use function Differ\Builder\buildDiff;
 use function Differ\Formatters\format;

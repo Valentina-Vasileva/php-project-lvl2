@@ -2,7 +2,8 @@
 
 namespace Differ\Builder;
 
-use Illuminate\Support\Collection;
+use function Funct\Collection\union;
+use function Funct\Collection\sortBy;
 
 function getPropertiesNames(object $object): array
 {
@@ -22,8 +23,8 @@ function createNode(string $key, string $type, $children, $oldValue, $newValue):
 
 function buildDiff(object $firstData, object $secondData): array
 {
-    $keys = array_merge(getPropertiesNames($firstData), getPropertiesNames($secondData));
-    $sortedKeys = collect($keys)->unique()->sort()->values()->all();
+    $keys = union(getPropertiesNames($firstData), getPropertiesNames($secondData));
+    $sortedKeys = array_values(sortBy($keys, fn($key) => $key));
 
     $differences = array_map(function ($key) use ($firstData, $secondData) {
         if (!property_exists($firstData, $key)) {
