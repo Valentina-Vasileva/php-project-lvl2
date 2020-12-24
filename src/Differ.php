@@ -9,18 +9,11 @@ use function Differ\Formatters\format;
 
 function getDataFromFile(string $pathToFile): string
 {
-    if (!startsWith($pathToFile, "/")) {
-        $cwd = getcwd();
-        $fullPathToFile = "{$cwd}/{$pathToFile}";
-    } else {
-        $fullPathToFile = $pathToFile;
+    if (!file_exists($pathToFile)) {
+        throw new \Exception("The file '{$pathToFile}' doesn't exist");
     }
 
-    if (!file_exists($fullPathToFile)) {
-        throw new \Exception("The file '{$fullPathToFile}' doesn't exist\n");
-    }
-
-    $data = file_get_contents($fullPathToFile) === false ? '' : file_get_contents($fullPathToFile);
+    $data = file_get_contents($pathToFile) === false ? '' : file_get_contents($pathToFile);
     return $data;
 }
 

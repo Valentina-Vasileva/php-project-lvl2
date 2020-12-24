@@ -12,6 +12,6 @@ function parse(string $data, string $extension): object
         case ('yaml'):
             return Yaml::parse($data, Yaml::PARSE_OBJECT_FOR_MAP);
         default:
-            throw new \Exception("The extension '{$extension}' is not supported\n");
+            throw new \Exception("The extension '{$extension}' is not supported");
     }
 }
