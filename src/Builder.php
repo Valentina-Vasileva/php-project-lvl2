@@ -29,9 +29,11 @@ function buildDiff(object $firstData, object $secondData): array
     $differences = array_map(function ($key) use ($firstData, $secondData) {
         if (!property_exists($firstData, $key)) {
             return createNode($key, "added", [], null, $secondData->$key);
-        } elseif (!property_exists($secondData, $key)) {
+        }
+        if (!property_exists($secondData, $key)) {
             return createNode($key, "deleted", [], $firstData->$key, null);
-        } elseif ($firstData->$key !== $secondData->$key) {
+        }
+        if ($firstData->$key !== $secondData->$key) {
             if (is_object($firstData->$key) && is_object($secondData->$key)) {
                 return createNode($key, "complex", buildDiff($firstData->$key, $secondData->$key), null, null);
             }
