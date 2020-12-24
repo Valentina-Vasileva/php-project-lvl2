@@ -9,13 +9,13 @@ function getPropertiesNames(object $object): array
     return array_keys(get_object_vars($object));
 }
 
-function createNode(string $key, string $type, $children, $pastValue, $newValue): array
+function createNode(string $key, string $type, $children, $oldValue, $newValue): array
 {
     return [
         "key" => $key,
         "type" => $type,
         "children" => $children,
-        "pastValue" => $pastValue,
+        "oldValue" => $oldValue,
         "newValue" => $newValue
     ];
 }

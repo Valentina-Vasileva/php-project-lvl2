@@ -23,7 +23,7 @@ function formatToPlain(array $data, $path = '', $startSymbols = ''): string
 {
     $formatted = array_reduce($data, function ($acc, $node) use ($path) {
 
-        $formattedPastValue = formatValue($node['pastValue']);
+        $formattedOldValue = formatValue($node['oldValue']);
         $formattedNewValue = formatValue($node['newValue']);
         $pathToNode = "{$path}{$node['key']}";
 
@@ -33,7 +33,7 @@ function formatToPlain(array $data, $path = '', $startSymbols = ''): string
             $newAcc = $acc . "\nProperty '{$pathToNode}' was removed";
         } elseif ($node["type"] === "changed") {
             $newAcc = $acc
-            . "\nProperty '{$pathToNode}' was updated. From {$formattedPastValue} to {$formattedNewValue}";
+            . "\nProperty '{$pathToNode}' was updated. From {$formattedOldValue} to {$formattedNewValue}";
         } elseif ($node["type"] === "complex") {
             $newAcc = $acc . formatToPlain($node["children"], "{$pathToNode}.", "\n");
         } else {

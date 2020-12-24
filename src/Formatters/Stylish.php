@@ -31,11 +31,11 @@ function formatToStylish($data, $startSymbol = "{\n", $level = 1): string
 {
     $formatted = array_reduce($data, function ($acc, $node) use ($level) {
         $levelSpaces = str_repeat(" ", ($level - 1) * 4);
-        $formattedPastValue = formatValue($node['pastValue'], $level);
+        $formattedOldValue = formatValue($node['oldValue'], $level);
         $formattedNewValue = formatValue($node['newValue'], $level);
 
         $addedNode = "{$levelSpaces}  + {$node['key']}: {$formattedNewValue}\n";
-        $deletedNode = "{$levelSpaces}  - {$node['key']}: {$formattedPastValue}\n";
+        $deletedNode = "{$levelSpaces}  - {$node['key']}: {$formattedOldValue}\n";
         $unchangedNode = "{$levelSpaces}    {$node['key']}: {$formattedNewValue}\n";
         $complexNode = "{$levelSpaces}    {$node['key']}: {\n";
 
