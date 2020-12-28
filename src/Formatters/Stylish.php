@@ -50,8 +50,7 @@ function formatToStylish($data, int $level): string
         if ($node["type"] === "changed") {
             $addedNode = "{$levelSpaces}  + {$node['key']}: {$formattedNewValue}";
             $deletedNode = "{$levelSpaces}  - {$node['key']}: {$formattedOldValue}";
-            $changedNode = implode("\n", [$deletedNode, $addedNode]);
-            return $changedNode;
+            return implode("\n", [$deletedNode, $addedNode]);
         }
 
         if ($node["type"] === "unchanged") {
