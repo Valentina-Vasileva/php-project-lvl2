@@ -17,13 +17,13 @@ function getDataFromFile(string $pathToFile): string
     return $data;
 }
 
-function genDiff($firstPathToFile, $secondPathToFile, $formatName = 'stylish'): string
+function genDiff($filepath1, $filepath2, $formatName = 'stylish'): string
 {
-    $firstData = getDataFromFile($firstPathToFile);
-    $secondData = getDataFromFile($secondPathToFile);
+    $firstData = getDataFromFile($filepath1);
+    $secondData = getDataFromFile($filepath2);
 
-    $parsedFirstFile =  parse($firstData, pathinfo($firstPathToFile, PATHINFO_EXTENSION));
-    $parsedSecondFile = parse($secondData, pathinfo($secondPathToFile, PATHINFO_EXTENSION));
+    $parsedFirstFile =  parse($firstData, pathinfo($filepath1, PATHINFO_EXTENSION));
+    $parsedSecondFile = parse($secondData, pathinfo($filepath2, PATHINFO_EXTENSION));
 
     $differences = buildDiff($parsedFirstFile, $parsedSecondFile);
 
