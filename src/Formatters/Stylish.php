@@ -15,8 +15,8 @@ function stringify($value, int $level): string
 
         $formattedArrayOfValue = array_map(function ($key) use ($value, $level) {
             $levelSpaces = str_repeat(" ", ($level + 1) * 4);
-            $valueChild = stringify($value->$key, $level + 1);
-            return "{$levelSpaces}{$key}: {$valueChild}";
+            $childValue = stringify($value->$key, $level + 1);
+            return "{$levelSpaces}{$key}: {$childValue}";
         }, $keys);
 
         $formattedValue = implode("\n", $formattedArrayOfValue);
