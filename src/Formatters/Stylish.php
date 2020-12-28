@@ -40,17 +40,18 @@ function formatToStylish($data, $startSymbol = "{\n", $level = 1): string
         $complexNode = "{$levelSpaces}    {$node['key']}: {\n";
 
         if ($node["type"] === "added") {
-            $newAcc = "{$acc}{$addedNode}";
-        } elseif ($node["type"] === "deleted") {
-            $newAcc = "{$acc}{$deletedNode}";
-        } elseif ($node["type"] === "changed") {
-            $newAcc = "{$acc}{$deletedNode}{$addedNode}";
-        } elseif ($node["type"] === "unchanged") {
-            $newAcc = "{$acc}{$unchangedNode}";
-        } else {
-            $newAcc = "{$acc}{$complexNode}" . formatToStylish($node["children"], "", $level + 1) . "\n";
+            return "{$acc}{$addedNode}";
         }
-        return $newAcc;
+        if ($node["type"] === "deleted") {
+            return "{$acc}{$deletedNode}";
+        }
+        if ($node["type"] === "changed") {
+            return "{$acc}{$deletedNode}{$addedNode}";
+        }
+        if ($node["type"] === "unchanged") {
+            return "{$acc}{$unchangedNode}";
+        }
+        return "{$acc}{$complexNode}" . formatToStylish($node["children"], "", $level + 1) . "\n";
     }, $startSymbol);
 
     return $formatted . str_repeat(" ", ($level - 1) * 4) . "}";
