@@ -16,7 +16,7 @@ function stringify($value): string
     if (is_string($value)) {
         return "'{$value}'";
     }
-        return "{$value}";
+    return "{$value}";
 }
 
 function formatToPlain(array $data, string $ancestry = '', string $startSymbols = ''): string
