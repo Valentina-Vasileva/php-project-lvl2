@@ -25,17 +25,17 @@ function formatToPlain(array $data, string $ancestry = '', string $startSymbols 
 
         $formattedOldValue = stringify($node['oldValue']);
         $formattedNewValue = stringify($node['newValue']);
-        $pathToNode = "{$ancestry}{$node['key']}";
+        $property = "{$ancestry}{$node['key']}";
 
         if ($node["type"] === "added") {
-            $newAcc = $acc . "\nProperty '{$pathToNode}' was added with value: {$formattedNewValue}";
+            $newAcc = $acc . "\nProperty '{$property}' was added with value: {$formattedNewValue}";
         } elseif ($node["type"] === "deleted") {
-            $newAcc = $acc . "\nProperty '{$pathToNode}' was removed";
+            $newAcc = $acc . "\nProperty '{$property}' was removed";
         } elseif ($node["type"] === "changed") {
             $newAcc = $acc
-            . "\nProperty '{$pathToNode}' was updated. From {$formattedOldValue} to {$formattedNewValue}";
+            . "\nProperty '{$property}' was updated. From {$formattedOldValue} to {$formattedNewValue}";
         } elseif ($node["type"] === "complex") {
-            $newAcc = $acc . formatToPlain($node["children"], "{$pathToNode}.", "\n");
+            $newAcc = $acc . formatToPlain($node["children"], "{$property}.", "\n");
         } else {
             $newAcc = $acc;
         }
