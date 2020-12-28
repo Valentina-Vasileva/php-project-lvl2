@@ -4,19 +4,19 @@ namespace Differ\Formatters\Plain;
 
 function stringify($value): string
 {
-    if ($value === false) {
-        return 'false';
-    } elseif ($value === null) {
-        return 'null';
-    } elseif ($value === true) {
-        return 'true';
-    } elseif (is_array($value) || is_object($value)) {
-        return '[complex value]';
-    } elseif (is_string($value)) {
-        return "'{$value}'";
-    } else {
-        return "{$value}";
+    if (is_bool($value)) {
+        return $value ? 'true' : 'false';
     }
+    if ($value === null) {
+        return 'null';
+    }
+    if (is_array($value) || is_object($value)) {
+        return '[complex value]';
+    }
+    if (is_string($value)) {
+        return "'{$value}'";
+    }
+        return "{$value}";
 }
 
 function formatToPlain(array $data, $path = '', $startSymbols = ''): string
