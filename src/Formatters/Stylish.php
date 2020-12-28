@@ -13,13 +13,16 @@ function stringify($value, int $level): string
     if (is_object($value)) {
         $keys = array_keys(get_object_vars($value));
 
-        $formattedValue = array_reduce($keys, function ($acc, $key) use ($value, $level) {
+        $formattedArrayOfValue = array_map(function ($key) use ($value, $level) {
             $levelSpaces = str_repeat(" ", ($level + 1) * 4);
-            $newAcc = "{$acc}{$levelSpaces}{$key}: " . stringify($value->$key, $level + 1) . "\n";
-            return $newAcc;
-        }, "{\n");
+            $valueChild = stringify($value->$key, $level + 1);
+            return "{$levelSpaces}{$key}: {$valueChild}";
+        }, $keys);
 
-        return $formattedValue . str_repeat(" ", $level * 4) . "}";
+        $formattedValue = implode("\n", $formattedArrayOfValue);
+        $levelStart = "{\n";
+        $levelEnd = "\n" . str_repeat(" ", $level * 4) . "}";
+        return "{$levelStart}{$formattedValue}{$levelEnd}";
     }
     if (is_array($value)) {
         return array_reduce($value, fn($acc, $item) => $acc . "{$item} ", "{ ") . "}";
@@ -27,37 +30,45 @@ function stringify($value, int $level): string
     return "{$value}";
 }
 
-function formatToStylish($data, $startSymbol = "{\n", $level = 1): string
+function formatToStylish($data, int $level): string
 {
-    $formatted = array_reduce($data, function ($acc, $node) use ($level) {
+    $formattedArray = array_map(function ($node) use ($level) {
+
         $levelSpaces = str_repeat(" ", ($level - 1) * 4);
+
         $formattedOldValue = stringify($node['oldValue'], $level);
         $formattedNewValue = stringify($node['newValue'], $level);
 
-        $addedNode = "{$levelSpaces}  + {$node['key']}: {$formattedNewValue}\n";
-        $deletedNode = "{$levelSpaces}  - {$node['key']}: {$formattedOldValue}\n";
-        $unchangedNode = "{$levelSpaces}    {$node['key']}: {$formattedNewValue}\n";
-        $complexNode = "{$levelSpaces}    {$node['key']}: {\n";
-
         if ($node["type"] === "added") {
-            return "{$acc}{$addedNode}";
+            return "{$levelSpaces}  + {$node['key']}: {$formattedNewValue}";
         }
-        if ($node["type"] === "deleted") {
-            return "{$acc}{$deletedNode}";
-        }
-        if ($node["type"] === "changed") {
-            return "{$acc}{$deletedNode}{$addedNode}";
-        }
-        if ($node["type"] === "unchanged") {
-            return "{$acc}{$unchangedNode}";
-        }
-        return "{$acc}{$complexNode}" . formatToStylish($node["children"], "", $level + 1) . "\n";
-    }, $startSymbol);
 
-    return $formatted . str_repeat(" ", ($level - 1) * 4) . "}";
+        if ($node["type"] === "deleted") {
+            return "{$levelSpaces}  - {$node['key']}: {$formattedOldValue}";
+        }
+
+        if ($node["type"] === "changed") {
+            $addedNode = "{$levelSpaces}  + {$node['key']}: {$formattedNewValue}";
+            $deletedNode = "{$levelSpaces}  - {$node['key']}: {$formattedOldValue}";
+            $changedNode = implode("\n", [$deletedNode, $addedNode]);
+            return $changedNode;
+        }
+
+        if ($node["type"] === "unchanged") {
+            return "{$levelSpaces}    {$node['key']}: {$formattedNewValue}";
+        }
+
+        $children = formatToStylish($node["children"], $level + 1);
+        return "{$levelSpaces}    {$node['key']}: {$children}";
+    }, $data);
+
+    $levelStart = "{\n";
+    $levelEnd = "\n" . str_repeat(" ", ($level - 1) * 4) . "}";
+    $formattedString = implode("\n", $formattedArray);
+    return "{$levelStart}{$formattedString}{$levelEnd}";
 }
 
 function format(array $data)
 {
-    return formatToStylish($data);
+    return formatToStylish($data, 1);
 }
