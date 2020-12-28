@@ -30,7 +30,7 @@ function buildDiff(object $firstData, object $secondData): array
         if (!property_exists($firstData, $key)) {
             return createNode($key, "added", null, $secondData->$key);
         }
-        
+
         if (!property_exists($secondData, $key)) {
             return createNode($key, "deleted", $firstData->$key, null);
         }
