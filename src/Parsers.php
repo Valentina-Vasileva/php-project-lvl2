@@ -8,7 +8,7 @@ function parse(string $data, string $format): object
 {
     switch ($format) {
         case ('json'):
-            $parsedData = json_decode($data, false);
+            $parsedData = json_decode($data);
             if (json_last_error() !== JSON_ERROR_NONE) {
                 throw new \Exception(json_last_error_msg());
             }
