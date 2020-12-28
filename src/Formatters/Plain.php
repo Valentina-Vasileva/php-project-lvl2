@@ -2,6 +2,8 @@
 
 namespace Differ\Formatters\Plain;
 
+use function Funct\Collection\flattenAll;
+
 function stringify($value): string
 {
     if (is_bool($value)) {
@@ -19,33 +21,33 @@ function stringify($value): string
     return "{$value}";
 }
 
-function formatToPlain(array $data, string $ancestry = '', string $startSymbols = ''): string
+function formatToPlain(array $data, string $ancestry): string
 {
-    $formatted = array_reduce($data, function ($acc, $node) use ($ancestry) {
+    $formatted = array_map(function ($node) use ($ancestry) {
 
         $formattedOldValue = stringify($node['oldValue']);
         $formattedNewValue = stringify($node['newValue']);
         $property = "{$ancestry}{$node['key']}";
 
         if ($node["type"] === "added") {
-            $newAcc = $acc . "\nProperty '{$property}' was added with value: {$formattedNewValue}";
-        } elseif ($node["type"] === "deleted") {
-            $newAcc = $acc . "\nProperty '{$property}' was removed";
-        } elseif ($node["type"] === "changed") {
-            $newAcc = $acc
-            . "\nProperty '{$property}' was updated. From {$formattedOldValue} to {$formattedNewValue}";
-        } elseif ($node["type"] === "complex") {
-            $newAcc = $acc . formatToPlain($node["children"], "{$property}.", "\n");
-        } else {
-            $newAcc = $acc;
+            return "Property '{$property}' was added with value: {$formattedNewValue}";
         }
-        return $newAcc;
-    }, "");
+        if ($node["type"] === "deleted") {
+            return "Property '{$property}' was removed";
+        }
+        if ($node["type"] === "changed") {
+            return "Property '{$property}' was updated. From {$formattedOldValue} to {$formattedNewValue}";
+        }
+        if ($node["type"] === "complex") {
+            return formatToPlain($node["children"], "{$property}.");
+        }
+        return [];
+    }, $data);
 
-    return substr($startSymbols . $formatted, 1);
+    return implode("\n", flattenAll($formatted));
 }
 
 function format(array $data)
 {
-    return formatToPlain($data);
+    return formatToPlain($data, '');
 }
