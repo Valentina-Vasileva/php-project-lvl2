@@ -33,13 +33,16 @@ function buildDiff(object $firstData, object $secondData): array
         if (!property_exists($secondData, $key)) {
             return createNode($key, "deleted", $firstData->$key, null);
         }
-        if ($firstData->$key !== $secondData->$key) {
-            if (is_object($firstData->$key) && is_object($secondData->$key)) {
-                return createNode($key, "complex", null, null, buildDiff($firstData->$key, $secondData->$key));
-            }
-                return createNode($key, "changed", $firstData->$key, $secondData->$key);
+
+        if (is_object($firstData->$key) && is_object($secondData->$key)) {
+            return createNode($key, "complex", null, null, buildDiff($firstData->$key, $secondData->$key));
         }
-            return createNode($key, "unchanged", $firstData->$key, $secondData->$key);
+
+        if ($firstData->$key !== $secondData->$key) {
+            return createNode($key, "changed", $firstData->$key, $secondData->$key);
+        }
+
+        return createNode($key, "unchanged", $firstData->$key, $secondData->$key);
     }, $sortedKeys);
 
     return $differences;
