@@ -2,7 +2,7 @@
 
 namespace Differ\Formatters\Plain;
 
-function formatValue($value): string
+function stringify($value): string
 {
     if ($value === false) {
         return 'false';
@@ -23,8 +23,8 @@ function formatToPlain(array $data, $path = '', $startSymbols = ''): string
 {
     $formatted = array_reduce($data, function ($acc, $node) use ($path) {
 
-        $formattedOldValue = formatValue($node['oldValue']);
-        $formattedNewValue = formatValue($node['newValue']);
+        $formattedOldValue = stringify($node['oldValue']);
+        $formattedNewValue = stringify($node['newValue']);
         $pathToNode = "{$path}{$node['key']}";
 
         if ($node["type"] === "added") {
