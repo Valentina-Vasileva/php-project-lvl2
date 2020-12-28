@@ -2,7 +2,7 @@
 
 namespace Differ\Formatters\Stylish;
 
-function formatValue($value, int $level): string
+function stringify($value, int $level): string
 {
     if ($value === false) {
         return 'false';
@@ -15,7 +15,7 @@ function formatValue($value, int $level): string
 
         $formattedValue = array_reduce($keys, function ($acc, $key) use ($value, $level) {
             $levelSpaces = str_repeat(" ", ($level + 1) * 4);
-            $newAcc = "{$acc}{$levelSpaces}{$key}: " . formatValue($value->$key, $level + 1) . "\n";
+            $newAcc = "{$acc}{$levelSpaces}{$key}: " . stringify($value->$key, $level + 1) . "\n";
             return $newAcc;
         }, "{\n");
 
@@ -31,8 +31,8 @@ function formatToStylish($data, $startSymbol = "{\n", $level = 1): string
 {
     $formatted = array_reduce($data, function ($acc, $node) use ($level) {
         $levelSpaces = str_repeat(" ", ($level - 1) * 4);
-        $formattedOldValue = formatValue($node['oldValue'], $level);
-        $formattedNewValue = formatValue($node['newValue'], $level);
+        $formattedOldValue = stringify($node['oldValue'], $level);
+        $formattedNewValue = stringify($node['newValue'], $level);
 
         $addedNode = "{$levelSpaces}  + {$node['key']}: {$formattedNewValue}\n";
         $deletedNode = "{$levelSpaces}  - {$node['key']}: {$formattedOldValue}\n";
