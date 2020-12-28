@@ -19,13 +19,13 @@ function stringify($value): string
         return "{$value}";
 }
 
-function formatToPlain(array $data, $path = '', $startSymbols = ''): string
+function formatToPlain(array $data, string $ancestry = '', string $startSymbols = ''): string
 {
-    $formatted = array_reduce($data, function ($acc, $node) use ($path) {
+    $formatted = array_reduce($data, function ($acc, $node) use ($ancestry) {
 
         $formattedOldValue = stringify($node['oldValue']);
         $formattedNewValue = stringify($node['newValue']);
-        $pathToNode = "{$path}{$node['key']}";
+        $pathToNode = "{$ancestry}{$node['key']}";
 
         if ($node["type"] === "added") {
             $newAcc = $acc . "\nProperty '{$pathToNode}' was added with value: {$formattedNewValue}";
@@ -43,4 +43,9 @@ function formatToPlain(array $data, $path = '', $startSymbols = ''): string
     }, "");
 
     return substr($startSymbols . $formatted, 1);
+}
+
+function format(array $data)
+{
+    return formatToPlain($data);
 }

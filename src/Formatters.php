@@ -4,7 +4,7 @@ namespace Differ\Formatters;
 
 use function Funct\Strings\startsWith;
 use function Differ\Formatters\Stylish\formatToStylish;
-use function Differ\Formatters\Plain\formatToPlain;
+use function Differ\Formatters\Plain;
 
 function format(array $data, string $format): string
 {
@@ -12,7 +12,7 @@ function format(array $data, string $format): string
         case ('stylish'):
             return formatToStylish($data);
         case ('plain'):
-            return formatToPlain($data);
+            return Plain\format($data);
         case ('json'):
             $formattedData = json_encode($data);
             if (json_last_error() !== JSON_ERROR_NONE) {
