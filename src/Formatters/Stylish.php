@@ -4,13 +4,13 @@ namespace Differ\Formatters\Stylish;
 
 function stringify($value, int $level): string
 {
-    if ($value === false) {
-        return 'false';
-    } elseif ($value === null) {
+    if (is_bool($value)) {
+        return $value ? 'true' : 'false';
+    }
+    if ($value === null) {
         return 'null';
-    } elseif ($value === true) {
-        return 'true';
-    } elseif (is_object($value)) {
+    }
+    if (is_object($value)) {
         $keys = array_keys(get_object_vars($value));
 
         $formattedValue = array_reduce($keys, function ($acc, $key) use ($value, $level) {
@@ -20,11 +20,11 @@ function stringify($value, int $level): string
         }, "{\n");
 
         return $formattedValue . str_repeat(" ", $level * 4) . "}";
-    } elseif (is_array($value)) {
-        return array_reduce($value, fn($acc, $item) => $acc . "{$item} ", "{ ") . "}";
-    } else {
-        return $value;
     }
+    if (is_array($value)) {
+        return array_reduce($value, fn($acc, $item) => $acc . "{$item} ", "{ ") . "}";
+    }
+    return "{$value}";
 }
 
 function formatToStylish($data, $startSymbol = "{\n", $level = 1): string
