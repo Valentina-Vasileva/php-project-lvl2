@@ -25,7 +25,7 @@ function stringify($value, int $level): string
         return "{$levelStart}{$formattedValue}{$levelEnd}";
     }
     if (is_array($value)) {
-        return array_reduce($value, fn($acc, $item) => $acc . "{$item} ", "{ ") . "}";
+        return "[" . implode(", ", $value) . "]";
     }
     return "{$value}";
 }
