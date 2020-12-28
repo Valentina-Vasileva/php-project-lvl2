@@ -55,3 +55,8 @@ function formatToStylish($data, $startSymbol = "{\n", $level = 1): string
 
     return $formatted . str_repeat(" ", ($level - 1) * 4) . "}";
 }
+
+function format(array $data)
+{
+    return formatToStylish($data);
+}

@@ -2,15 +2,14 @@
 
 namespace Differ\Formatters;
 
-use function Funct\Strings\startsWith;
-use function Differ\Formatters\Stylish\formatToStylish;
-use function Differ\Formatters\Plain;
+use Differ\Formatters\Stylish;
+use Differ\Formatters\Plain;
 
 function format(array $data, string $format): string
 {
     switch ($format) {
         case ('stylish'):
-            return formatToStylish($data);
+            return Stylish\format($data);
         case ('plain'):
             return Plain\format($data);
         case ('json'):
