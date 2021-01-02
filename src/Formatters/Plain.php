@@ -52,7 +52,7 @@ function formatToPlain(array $data, string $ancestry): string
     return implode("\n", flattenAll($formatted));
 }
 
-function format(array $data)
+function format(array $data): string
 {
     return formatToPlain($data, '');
 }

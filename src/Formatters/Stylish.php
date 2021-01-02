@@ -65,7 +65,7 @@ function formatToStylish($data, int $level): string
     return "{\n{$formattedString}\n{$indent}}";
 }
 
-function format(array $data)
+function format(array $data): string
 {
     return formatToStylish($data, 1);
 }
