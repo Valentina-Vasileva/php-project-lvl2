@@ -36,9 +36,9 @@ function stringify($value, int $level): string
 
 function formatToStylish($data, int $level): string
 {
-    $formattedArray = array_map(function ($node) use ($level) {
+    $indent = str_repeat(" ", ($level - 1) * 4);
 
-        $indent = str_repeat(" ", ($level - 1) * 4);
+    $formattedArray = array_map(function ($node) use ($level, $indent) {
 
         $formattedOldValue = stringify($node['oldValue'], $level);
         $formattedNewValue = stringify($node['newValue'], $level);
@@ -63,7 +63,7 @@ function formatToStylish($data, int $level): string
     }, $data);
 
     $levelStart = "{\n";
-    $levelEnd = "\n" . str_repeat(" ", ($level - 1) * 4) . "}";
+    $levelEnd = "\n" . $indent . "}";
     $formattedString = implode("\n", $formattedArray);
     return "{$levelStart}{$formattedString}{$levelEnd}";
 }
