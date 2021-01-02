@@ -26,7 +26,7 @@ function buildDiff(object $firstData, object $secondData): array
     $keys = union(getPropertiesNames($firstData), getPropertiesNames($secondData));
     $sortedKeys = array_values(sortBy($keys, fn($key) => $key));
 
-    $differences = array_map(function ($key) use ($firstData, $secondData) {
+    $differences = array_map(function ($key) use ($firstData, $secondData): array {
         if (!property_exists($firstData, $key)) {
             return createNode($key, "added", null, $secondData->$key);
         }

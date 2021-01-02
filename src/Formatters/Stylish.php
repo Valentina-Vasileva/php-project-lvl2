@@ -16,7 +16,7 @@ function stringify($value, int $level): string
         $keys = array_keys(get_object_vars($value));
         $indent = str_repeat(" ", $level * 4);
 
-        $formattedArrayOfValue = array_map(function ($key) use ($value, $level, $indent) {
+        $formattedArrayOfValue = array_map(function ($key) use ($value, $level, $indent): string {
             $childValue = stringify($value->$key, $level + 1);
             return "{$indent}    {$key}: {$childValue}";
         }, $keys);
@@ -37,7 +37,7 @@ function formatToStylish($data, int $level): string
 {
     $indent = str_repeat(" ", ($level - 1) * 4);
 
-    $formattedArray = array_map(function ($node) use ($level, $indent) {
+    $formattedArray = array_map(function ($node) use ($level, $indent): string {
 
         $formattedOldValue = stringify($node['oldValue'], $level);
         $formattedNewValue = stringify($node['newValue'], $level);
