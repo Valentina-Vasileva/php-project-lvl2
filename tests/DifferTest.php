@@ -3,7 +3,8 @@
 namespace Differ\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Differ\Differ;
+
+use function Differ\Differ\genDiff;
 
 class DifferTest extends TestCase
 {
@@ -17,7 +18,7 @@ class DifferTest extends TestCase
         $firstPathToFile = $this->getFixturePath('TestDoc1.json');
         $secondPathToFile = $this->getFixturePath('TestDoc.doc');
         $this->expectExceptionMessage("The file format 'doc' is not supported");
-        Differ\genDiff($firstPathToFile, $secondPathToFile, 'plain');
+        genDiff($firstPathToFile, $secondPathToFile, 'plain');
     }
 
     public function testReportFormatException()
@@ -25,7 +26,7 @@ class DifferTest extends TestCase
         $firstPathToFile = $this->getFixturePath('TestDoc1.json');
         $secondPathToFile = $this->getFixturePath('TestDoc2.json');
         $this->expectExceptionMessage("The report format '0' is not supported");
-        Differ\genDiff($firstPathToFile, $secondPathToFile, '0');
+        genDiff($firstPathToFile, $secondPathToFile, '0');
     }
 
     public function testReadableFileException()
@@ -33,7 +34,7 @@ class DifferTest extends TestCase
         $firstPathToFile = $this->getFixturePath('TestDoc1.json');
         $secondPathToFile = $this->getFixturePath('TestNotReadable.json');
         $this->expectExceptionMessage("The file '{$secondPathToFile}' is not readable");
-        Differ\genDiff($firstPathToFile, $secondPathToFile, 'json');
+        genDiff($firstPathToFile, $secondPathToFile, 'json');
     }
 
     /**
@@ -42,7 +43,7 @@ class DifferTest extends TestCase
 
     public function testGenDiff($expected, $firstPathToFile, $secondPathToFile, $formatName = 'stylish')
     {
-        $this->assertEquals($expected, Differ\genDiff($firstPathToFile, $secondPathToFile, $formatName));
+        $this->assertEquals($expected, genDiff($firstPathToFile, $secondPathToFile, $formatName));
     }
 
     public function additionProvider()
