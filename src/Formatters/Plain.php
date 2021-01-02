@@ -9,7 +9,7 @@ function stringify($value): string
     if (is_bool($value)) {
         return $value ? 'true' : 'false';
     }
-    if ($value === null) {
+    if (is_null($value)) {
         return 'null';
     }
     if (is_array($value) || is_object($value)) {

@@ -7,7 +7,7 @@ function stringify($value, int $level): string
     if (is_bool($value)) {
         return $value ? 'true' : 'false';
     }
-    if ($value === null) {
+    if (is_null($value)) {
         return 'null';
     }
     if (is_object($value)) {
