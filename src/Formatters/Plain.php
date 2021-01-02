@@ -9,15 +9,19 @@ function stringify($value): string
     if (is_bool($value)) {
         return $value ? 'true' : 'false';
     }
+
     if (is_null($value)) {
         return 'null';
     }
+
     if (is_array($value) || is_object($value)) {
         return '[complex value]';
     }
+
     if (is_string($value)) {
         return "'{$value}'";
     }
+
     return "{$value}";
 }
 

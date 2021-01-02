@@ -7,9 +7,11 @@ function stringify($value, int $level): string
     if (is_bool($value)) {
         return $value ? 'true' : 'false';
     }
+
     if (is_null($value)) {
         return 'null';
     }
+
     if (is_object($value)) {
         $keys = array_keys(get_object_vars($value));
 
@@ -24,9 +26,11 @@ function stringify($value, int $level): string
         $levelEnd = "\n" . str_repeat(" ", $level * 4) . "}";
         return "{$levelStart}{$formattedValue}{$levelEnd}";
     }
+
     if (is_array($value)) {
         return "[" . implode(", ", $value) . "]";
     }
+
     return "{$value}";
 }
 
