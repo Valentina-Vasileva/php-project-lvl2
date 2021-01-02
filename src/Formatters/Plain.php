@@ -29,19 +29,20 @@ function formatToPlain(array $data, string $ancestry): string
         $formattedNewValue = stringify($node['newValue']);
         $property = "{$ancestry}{$node['key']}";
 
-        if ($node["type"] === "added") {
-            return "Property '{$property}' was added with value: {$formattedNewValue}";
+        switch ($node["type"]) {
+            case ("added"):
+                return "Property '{$property}' was added with value: {$formattedNewValue}";
+            case ("deleted"):
+                return "Property '{$property}' was removed";
+            case ("changed"):
+                return "Property '{$property}' was updated. From {$formattedOldValue} to {$formattedNewValue}";
+            case ("complex"):
+                return formatToPlain($node["children"], "{$property}.");
+            case ("unchanged"):
+                return [];
+            default:
+                throw new \Exception("The node type '{$node['type']}' is not identified");
         }
-        if ($node["type"] === "deleted") {
-            return "Property '{$property}' was removed";
-        }
-        if ($node["type"] === "changed") {
-            return "Property '{$property}' was updated. From {$formattedOldValue} to {$formattedNewValue}";
-        }
-        if ($node["type"] === "complex") {
-            return formatToPlain($node["children"], "{$property}.");
-        }
-        return [];
     }, $data);
 
     return implode("\n", flattenAll($formatted));
