@@ -39,26 +39,23 @@ function formatToStylish($data, int $level): string
         $formattedOldValue = stringify($node['oldValue'], $level);
         $formattedNewValue = stringify($node['newValue'], $level);
 
-        if ($node["type"] === "added") {
-            return "{$levelSpaces}  + {$node['key']}: {$formattedNewValue}";
+        switch ($node["type"]) {
+            case ("added"):
+                return "{$levelSpaces}  + {$node['key']}: {$formattedNewValue}";
+            case ("deleted"):
+                return "{$levelSpaces}  - {$node['key']}: {$formattedOldValue}";
+            case ("changed"):
+                $addedNode = "{$levelSpaces}  + {$node['key']}: {$formattedNewValue}";
+                $deletedNode = "{$levelSpaces}  - {$node['key']}: {$formattedOldValue}";
+                return implode("\n", [$deletedNode, $addedNode]);
+            case ("complex"):
+                $children = formatToStylish($node["children"], $level + 1);
+                return "{$levelSpaces}    {$node['key']}: {$children}";
+            case ("unchanged"):
+                return "{$levelSpaces}    {$node['key']}: {$formattedNewValue}";
+            default:
+                throw new \Exception("The node type '{$node['type']}' is not identified");
         }
-
-        if ($node["type"] === "deleted") {
-            return "{$levelSpaces}  - {$node['key']}: {$formattedOldValue}";
-        }
-
-        if ($node["type"] === "changed") {
-            $addedNode = "{$levelSpaces}  + {$node['key']}: {$formattedNewValue}";
-            $deletedNode = "{$levelSpaces}  - {$node['key']}: {$formattedOldValue}";
-            return implode("\n", [$deletedNode, $addedNode]);
-        }
-
-        if ($node["type"] === "unchanged") {
-            return "{$levelSpaces}    {$node['key']}: {$formattedNewValue}";
-        }
-
-        $children = formatToStylish($node["children"], $level + 1);
-        return "{$levelSpaces}    {$node['key']}: {$children}";
     }, $data);
 
     $levelStart = "{\n";
