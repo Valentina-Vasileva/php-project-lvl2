@@ -26,7 +26,8 @@ function stringify($value, int $level): string
     }
 
     if (is_array($value)) {
-        return "[" . implode(", ", $value) . "]";
+        $stringifiedArray = implode(", ", $value);
+        return "[{$stringifiedArray}]";
     }
 
     return "{$value}";
