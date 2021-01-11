@@ -1,5 +1,4 @@
-### Hexlet tests and linter status:
-[![Actions Status](https://github.com/Valentina-Vasileva/php-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/Valentina-Vasileva/php-project-lvl2/actions)
+### Tests and linter status:
 ![](https://github.com/Valentina-Vasileva/php-project-lvl2/workflows/Tests%20and%20linter/badge.svg)
 <a href="https://codeclimate.com/github/Valentina-Vasileva/php-project-lvl2/maintainability"><img src="https://api.codeclimate.com/v1/badges/eaa92505ee1615e22030/maintainability" /></a>
 <a href="https://codeclimate.com/github/Valentina-Vasileva/php-project-lvl2/test_coverage"><img src="https://api.codeclimate.com/v1/badges/eaa92505ee1615e22030/test_coverage" /></a>
